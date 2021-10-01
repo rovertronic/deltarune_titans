@@ -11,7 +11,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "snd_Music",
-  "duration": 0.0,
+  "duration": 101.037163,
   "parent": {
     "name": "JevilSound",
     "path": "folders/Sounds/JevilSound.yy",

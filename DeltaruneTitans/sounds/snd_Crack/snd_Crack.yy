@@ -11,7 +11,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "snd_Crack",
-  "duration": 0.0,
+  "duration": 0.163447,
   "parent": {
     "name": "JevilSound",
     "path": "folders/Sounds/JevilSound.yy",

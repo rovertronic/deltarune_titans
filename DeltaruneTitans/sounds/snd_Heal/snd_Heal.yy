@@ -11,7 +11,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "snd_Heal",
-  "duration": 0.0,
+  "duration": 0.521088,
   "parent": {
     "name": "JevilSound",
     "path": "folders/Sounds/JevilSound.yy",

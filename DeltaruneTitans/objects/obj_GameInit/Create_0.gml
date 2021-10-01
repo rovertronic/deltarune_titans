@@ -64,5 +64,9 @@ global.TextTable = [
 	[3,false,0,"...Why you giving me that nasty\nlook?"], //48
     ];
 
-
-room_goto(rm_Start);
+title_timer = 0;
+title_state = 0;
+title_y = 0;
+title_grav = 0;
+title_fade_amount = 1;
+title_fade_io = false;
