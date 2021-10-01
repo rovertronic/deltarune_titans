@@ -1,0 +1,1 @@
+func_init_text(46);

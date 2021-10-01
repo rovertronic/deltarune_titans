@@ -1,0 +1,87 @@
+!!! Font font uses a font (Determination Mono) not installed on this system - Font has NOT been regenerated
+GameMaker Studio 1 font texture has been backed up at ${project_dir}\fonts\font\font.gms1.png
+!!! Font font_2 uses a font (Determination Mono) not installed on this system - Font has NOT been regenerated
+GameMaker Studio 1 font texture has been backed up at ${project_dir}\fonts\font_2\font_2.gms1.png
+!!! Font font3 uses a font (Determination Mono) not installed on this system - Font has NOT been regenerated
+GameMaker Studio 1 font texture has been backed up at ${project_dir}\fonts\font3\font3.gms1.png
+Converting GML script: ${project_dir}\objects\obj_JevilText\Create_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JevilText\Alarm_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JevilText\Step_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JevilText\Draw_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+Converted builtin - line 3: view_xview[0] -> __view_get( e__VW.XView, 0 )
+Converted builtin - line 3: view_yview[0] -> __view_get( e__VW.YView, 0 )
+Converted builtin - line 3: view_wview[0] -> __view_get( e__VW.WView, 0 )
+Converted builtin - line 3: view_hview[0] -> __view_get( e__VW.HView, 0 )
+
+Converting GML script: ${project_dir}\objects\obj_JText2\Create_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JText2\Alarm_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JText2\Step_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JText2\Draw_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JevilText3\Create_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JevilText3\Alarm_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_JevilText3\Draw_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_CharaText\Create_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_CharaText\Alarm_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+Converting GML script: ${project_dir}\objects\obj_CharaText\Draw_0.gml
+Error: variable 'message' has same name as a built-in (function, constant or variable), it must be renamed to function correctly
+
+macOS icon ${options_dir}\mac\icons\icon512.png written out as 32-bit
+Windows NSIS Installer Script has been set to default due to changes in GameMaker Studio 2
+Missing audiogroup for sound: 'snd_Attack' - setting to default audio group
+Missing audiogroup for sound: 'snd_Hit' - setting to default audio group
+Missing audiogroup for sound: 'snd_Music' - setting to default audio group
+Missing audiogroup for sound: 'snd_Hurt' - setting to default audio group
+Missing audiogroup for sound: 'snd_Crack' - setting to default audio group
+Missing audiogroup for sound: 'snd_Oh' - setting to default audio group
+Missing audiogroup for sound: 'snd_Chaos' - setting to default audio group
+Missing audiogroup for sound: 'snd_Bye' - setting to default audio group
+Missing audiogroup for sound: 'snd_MetaMorph' - setting to default audio group
+Missing audiogroup for sound: 'snd_Slice' - setting to default audio group
+Missing audiogroup for sound: 'snd_Summon' - setting to default audio group
+Missing audiogroup for sound: 'snd_MegaLaugh' - setting to default audio group
+Missing audiogroup for sound: 'snd_Circus' - setting to default audio group
+Missing audiogroup for sound: 'snd_Talk' - setting to default audio group
+Missing audiogroup for sound: 'snd_J1' - setting to default audio group
+Missing audiogroup for sound: 'snd_J2' - setting to default audio group
+Missing audiogroup for sound: 'snd_J3' - setting to default audio group
+Missing audiogroup for sound: 'snd_J4' - setting to default audio group
+Missing audiogroup for sound: 'snd_J5' - setting to default audio group
+Missing audiogroup for sound: 'snd_J6' - setting to default audio group
+Missing audiogroup for sound: 'snd_Gaster' - setting to default audio group
+Missing audiogroup for sound: 'snd_Scare' - setting to default audio group
+Missing audiogroup for sound: 'snd_TitleSound' - setting to default audio group
+Missing audiogroup for sound: 'snd_Bell' - setting to default audio group
+Missing audiogroup for sound: 'snd_Alarm' - setting to default audio group
+Missing audiogroup for sound: 'snd_Heal' - setting to default audio group
+Game speed set to 30
+Added compatibility script 'instance/instance_create.gml'
+Added compatibility script 'object/object_get_depth.gml'
+Added compatibility script 'view/__view_get.gml'
+Added compatibility script 'view/__init_view.gml'
+Added compatibility script '__init_global.gml'
+Added compatibility script '__global_object_depths.gml'
