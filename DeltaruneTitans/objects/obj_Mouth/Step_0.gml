@@ -2,11 +2,11 @@ if global.State == 0
     {
     if global.attack == 2
         {
-        move_towards_point(obj_Soul.x,obj_Soul.y,8);
+        move_towards_point(obj_Soul_Old.x,obj_Soul_Old.y,8);
         }
         else
         {
-        move_towards_point(obj_Soul.x,obj_Soul.y,0);
+        move_towards_point(obj_Soul_Old.x,obj_Soul_Old.y,0);
         x = room_width/2;
         y = y + grav
         
@@ -70,7 +70,7 @@ if global.State == 3
     }
 if global.State == 5
     {
-    move_towards_point(obj_Soul.x,obj_Soul.y,0);
+    move_towards_point(obj_Soul_Old.x,obj_Soul_Old.y,0);
     }
 if global.attack == 7
     {

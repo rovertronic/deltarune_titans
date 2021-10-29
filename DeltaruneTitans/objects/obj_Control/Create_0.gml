@@ -1,7 +1,6 @@
 global.Graze = 0;
 global.DissalowGraze = 0;
-global.HP = 50;
-global.MP = 0;
+global.HP = (global.HP/global.MaxHP) * 50;
 global.Super = false;
 global.BossQue = 0;
 mpque = 0;
@@ -11,7 +10,7 @@ global.KK = 0;
 flunk = 0;
 
 global.State = 3;
-global.BossHP = 611;
+global.BossHP = (global.Enemy_HP/global.Enemy_MaxHP) * 611;
 dcount = 60;
 windowx = 1280;
 windowy = 720;

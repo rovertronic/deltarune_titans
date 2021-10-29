@@ -1,6 +1,12 @@
 surface_resize(application_surface, 640, 360);
 
+audio_sound_pitch(mus_prejevil,1);
+
 audio_stop_all();
+
+surf = -1;
+
+room_center_x = room_width/2;
 
 e = 0;
 i = 0;
@@ -8,12 +14,21 @@ i2 = 0;
 ix = 0;
 iy = 0;
 
+gamepad_temporary = global.Gamepad;
+
+submenu_width = 0;
+submenu_height = 0;
+submenu_open = false;
+submenu_open_full = false;
+
 transition_io = true;
 transition_fade = 1;
 transition_room = noone;
 
 scroll_vertical = 0;
 scroll_horizontal = 0;
+scroll_submenu = 0;
+submenu_type = 0;
 
 chapter_unlocks = 1; //including 0 (6 max)
 chapter_total = 7; //not including 0 lmao
@@ -26,7 +41,7 @@ chapter_scroll_table = [0,0,0,1,2,2,2,2];
 
 chapter_rooms = [
 rm_OW1,
-rm_OW2_sub2,
+rm_OW2,
 rm_OW1,
 rm_OW1,
 rm_OW1,
@@ -38,13 +53,23 @@ rm_OW1,
 ];
 
 chapter_musics = [
-snd_Circus,
-mus_Spamton_Intro,
+mus_prejevil,
+mus_Wind,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0
 ]
 
 chapter_text = [
 "Omega Jevil",
-"Sigma Spamton",
+"Spamton Sigma",
 "Chapter 3 Secret Boss",
 "Chapter 4 Secret Boss",
 "Chapter 5 Secret Boss",
@@ -56,18 +81,64 @@ chapter_text = [
 ];
 //i heard somewhere there might be 10 chapters LOL
 
-options_text = [
-["Fullscreen","Windowed"],["Keyboard","Mouse","Controller"],["Credits"],["Delete Save","Are you sure?","Are you DOUBLE sure???","Save Deleted."],["Exit"]
+chapter_descriptions = [
+"Your Undertale run is a typical experience until you get past Toriel in the ruins. Before you exit, a dark shadowy portal absorbs you.",
+"After you defeated Omega Jevil, the first titan, you finally proceed through Snowdin. However, after your encounter with Papyrus, another portal absorbs you.",
+"...",
+"...",
+"...",
+"...",
+"...",
+"...",
+"...",
+"..."
+];
+
+runs_text = [
+"Pacifist","Neutral","Soulcrusher","Back"
+];
+
+start_lvs = [
+[1,1,1],
+[1,2,4],
+[1,1,1],
+[1,1,1],
+[1,1,1],
+[1,1,1],
+[1,1,1],
+[1,1,1],
+[1,1,1],
+[1,1,1]
 ]
-options_value = [0,0,0,0,0];
-options_spacing = room_width/(array_length(options_value)+1);
+
+options_text = [
+["Fullscreen","Windowed"],["Keyboard","Mouse","Controller"],["Delete Save","Are you sure?","Are you DOUBLE sure???","Save Deleted."],["Exit"]
+]
+menu_text = [
+"Items","Credits","Options","Exit"
+]
+
+options_value = [0,0,0,0];
+//options_spacing = room_height/(array_length(options_value)+1);
+menu_spacing = room_width/(array_length(menu_text)+1);
+
+//
+global.Current_Interacting_Object = -1;
+//
 
 global.Chapter = 0;
 
-global.Party = 1; //1 = snowkid
+global.Party = 0; //1 = snowkid
 global.StartX = 0;
 global.StartY = 0;
 global.StartMatter = false;
+global.StartMusic = -1;
+global.CurrentMusic = -1;
+
+global.NoHitRun = true;
+
+global.Soul_X = 0;
+global.Soul_Y = 0;
 
 for (i=0;i<30;i++) {
 	global.Room_Solved[i] = false;
@@ -89,11 +160,10 @@ global.Party_Names = [
 global.Deaths = 0;
 global.SavedSouls = 0;
 
+global.Run = 0; //0 = pacifist, 1=neutral, 2=genocide
 
 
 //init save variables
-global.Gamepad = 3;
-
 global.chapters_played = [false,false,false,false,false,false,false,false,false,false];
 global.Stars = 0;
 global.star_table = [
@@ -110,16 +180,51 @@ global.star_table = [
 [0,0,0,0],
 ];
 
-//save
+global.Inventory = [0,0,0,0,0,0,0,0];
+
+runs_unlocked = [
+[0,1,0],
+[0,0,0],
+[0,0,0],
+[0,0,0],
+[0,0,0],
+[0,0,0],
+[0,0,0],
+[0,0,0],
+[0,0,0],
+[0,0,0]
+]
+
+//load
 ini_open("Deltarune_Titans_Save.ini");
+
 for (iy = 0; iy < 10; iy ++) {
 	for (ix = 0; ix < 4; ix ++) {
 		global.star_table[iy][ix] = ini_read_real(string(iy),string(ix),0);
-		global.Stars += global.star_table[iy][ix];
+		if ((iy != 0)&&(ix != 3)) {
+			runs_unlocked[iy][ix] = global.star_table[iy-1][ix];
+			}
+		if (ix != 3) {//the secret 4th star doesn't count
+			global.Stars += global.star_table[iy][ix];
+			}
 		if ((ix == 3)&&(global.star_table[iy][3])) {
 			global.chapters_played[iy] = true;
 			}
 		}
 	}
+
+//inventory
+for (i=0;i<8;i++) {
+	if (ini_read_real("Inventory",string(i+1),false) != false) {
+		global.Inventory[i] = i+1;
+		}
+	}
+	func_inv_sort();
+	
+	//i wanted to use my add item function but gamemaker is fucking high
+	// i had to write a fucking sorting algorithm!!!
+	// 
 ini_close();
+
+global.SafeInventory = global.Inventory;
 

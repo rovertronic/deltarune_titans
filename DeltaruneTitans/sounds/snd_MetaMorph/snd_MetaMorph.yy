@@ -11,7 +11,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "snd_MetaMorph",
-  "duration": 0.0,
+  "duration": 4.223583,
   "parent": {
     "name": "JevilSound",
     "path": "folders/Sounds/JevilSound.yy",

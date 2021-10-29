@@ -11,7 +11,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "snd_MegaLaugh",
-  "duration": 0.0,
+  "duration": 8.828277,
   "parent": {
     "name": "JevilSound",
     "path": "folders/Sounds/JevilSound.yy",

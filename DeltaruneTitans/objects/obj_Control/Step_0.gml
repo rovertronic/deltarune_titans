@@ -208,8 +208,8 @@ if room_height < windowy
     
 if global.HP < 1 and global.SavedSouls != 6
     {
-    global.GOx = obj_Soul.x;
-    global.GOy = obj_Soul.y;
+    global.GOx = obj_Soul_Old.x;
+    global.GOy = obj_Soul_Old.y;
     room_goto(rm_GameOver);
     }
     
@@ -226,7 +226,7 @@ if global.BossHP < 1 and global.State != 5
     global.red = 0;
     global.green = 0;
     global.blue = 0;
-    audio_stop_sound(snd_Music);
+    audio_stop_sound(mus_OmegaJevil);
     alarm_set(4,150);
     }
     
@@ -242,9 +242,3 @@ if global.SavedSouls == 6
         global.HP = 10;
         }
     }
-
-
-if keyboard_check(vk_f1) {
-	global.BossHP = 1;
-	global.MP = 100;
-	}

@@ -1,4 +1,4 @@
-audio_play_sound(snd_Music,0,true);
+audio_play_sound(mus_OmegaJevil,0,true);
 global.State = 1;
 global.red = 255;
 global.green = 255;

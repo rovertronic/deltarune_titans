@@ -26,8 +26,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "Omega Jevil",
+    "path": "folders/Objects/Omega Jevil.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_GameOver",

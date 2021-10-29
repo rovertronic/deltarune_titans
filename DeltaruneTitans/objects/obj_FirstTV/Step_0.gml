@@ -15,7 +15,7 @@ if go == 1
     y += 20
     if y > 720
         {
-        audio_stop_sound(snd_Circus);
+        audio_stop_sound(mus_prejevil);
         room_goto(rm_Fight);
         }
     }

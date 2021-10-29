@@ -4,3 +4,7 @@ hazard_graze_cooldown = 10;
 
 //leave em be
 graze_cooldown = 0;
+exist = 1;
+image_alpha = 0.1;
+
+soul = -1;

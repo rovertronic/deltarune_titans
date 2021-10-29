@@ -3,7 +3,7 @@ if cool > 0
     cool -= 1;
     }
 
-image_index = place_meeting(x,y,obj_Soul);
+image_index = place_meeting(x,y,obj_Soul_Old);
 
 if global.Gamepad == false
     {
@@ -18,7 +18,7 @@ if global.Gamepad == 3
     icheck = keyboard_check_pressed(ord("Z"))
     }
 
-if place_meeting(x,y,obj_Soul) and icheck
+if place_meeting(x,y,obj_Soul_Old) and icheck
     {
     global.MP = 0;
     global.State = 6;

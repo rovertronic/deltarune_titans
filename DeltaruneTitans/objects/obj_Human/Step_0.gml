@@ -1,3 +1,5 @@
+func_controls();
+
 //Control
 image_speed = 0;
 inputted = false;
@@ -7,7 +9,7 @@ sliding = place_meeting(x,y,obj_Ice);
 jumpout = false;
 if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding))
     {
-    if (!jumpout)&&(keyboard_check(vk_down) or gamepad_button_check(0,gp_padd))
+    if (!jumpout)&&dc
         {
         sprite_index = spr_FriskDown;
 		image_xscale = 1;
@@ -20,7 +22,7 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding))
 		sliding = place_meeting(x,y,obj_Ice);
 		jumpout = sliding;
         }
-    if (!jumpout)&&(keyboard_check(vk_up) or gamepad_button_check(0,gp_padu) or place_meeting(x,y,obj_Arrows))
+    if (!jumpout)&&((uc)||(place_meeting(x,y,obj_Arrows)))
         {
         sprite_index = spr_FriskUp;
 		image_xscale = 1;
@@ -33,7 +35,7 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding))
 		sliding = place_meeting(x,y,obj_Ice);
 		jumpout = sliding;
         }
-    if (!jumpout)&&(keyboard_check(vk_left) or gamepad_button_check(0,gp_padl))
+    if (!jumpout)&&lc
         {
         sprite_index = spr_FriskSide;
         image_xscale = 1;
@@ -46,7 +48,7 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding))
 		sliding = place_meeting(x,y,obj_Ice);
 		jumpout = sliding;
         }
-    if (!jumpout)&&(keyboard_check(vk_right) or gamepad_button_check(0,gp_padr))
+    if (!jumpout)&&rc
         {
 		dir = 2;
         x += walkspeed;
@@ -60,10 +62,11 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding))
 		jumpout = sliding;
         }
 		
-	if (keyboard_check_pressed(ord("Z"))) {
+	if (b1p) {
 		interact_object = collision_rectangle(x-12,y-15,x+12,y+18,obj_NPC,false,true);
 		if (interact_object) {
 			func_init_text(interact_object.dialogid);
+			global.Current_Interacting_Object = interact_object;
 			}
 		}
 		
@@ -88,6 +91,7 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding))
 		global.StartMatter = !interact_object.room_pos_default;
 		global.StartX = interact_object.room_x;
 		global.StartY = interact_object.room_y;
+		global.StartMusic = interact_object.room_music;
 		transition_io = false;
 		transition_room = interact_object.room_id;
 		}
@@ -135,13 +139,13 @@ if (moving) {
 if (menu_open) {
 	
 	if (!menu_state) {
-	    if keyboard_check_pressed(vk_down) or gamepad_button_check_pressed(0,gp_padd) {
+	    if dcp {
 			if (menu_select < 2) {
 				menu_select++;
 				audio_play_sound(snd_Menu,0,false);
 				}
 	        }
-	    if keyboard_check_pressed(vk_up) or gamepad_button_check_pressed(0,gp_padu) {
+	    if ucp {
 			if (menu_select > 0) {
 				menu_select--;
 				audio_play_sound(snd_Menu,0,false);
@@ -149,23 +153,50 @@ if (menu_open) {
 	        }
 		}
 		
-	if (keyboard_check_pressed(ord("Z"))) {
-		switch(menu_select) {
-			case 0:
-			audio_play_sound(snd_MenuError,0,false);
-			break;
-			case 1:
-			menu_state = 1;
-			break;
-			case 2:
-			menu_open = false;
-			func_init_text(36);
-			audio_play_sound(snd_Phone,0,false);
-			break;
+	if (menu_state == 2) {//item menu
+	    if dcp {
+			item_select ++;
+	        }
+	    if ucp {
+			item_select --;
+	        }
+		item_cap = func_inv_itemcount()-1;
+		item_select = clamp(item_select,0,item_cap);
+		}
+		
+	if b1p {
+		if (menu_state == 0) {
+			switch(menu_select) {
+				case 0:
+				if (func_inv_itemcount() > 0) {
+					menu_state = 2;
+					item_select = 0;
+					}
+					else
+					{
+					audio_play_sound(snd_MenuError,0,0);
+					}
+				break;
+				case 1:
+				menu_state = 1;
+				break;
+				case 2:
+				menu_open = false;
+				func_init_text(36);
+				audio_play_sound(snd_Phone,0,false);
+				break;
+				}
+			}
+			else
+			{
+			if (menu_state == 2) {
+				menu_open = false;
+				func_init_text(53+global.Inventory[item_select]);
+				}
 			}
 		}
 	
-	if (keyboard_check_pressed(ord("X"))) {
+	if (b2p) {
 		if (menu_state) {
 			//close stats
 			menu_state = 0;
@@ -179,7 +210,7 @@ if (menu_open) {
 	}
 
 //Menu Toggle
-if (keyboard_check_pressed(ord("C"))) && (!text_open) {
+if (b3p) && (!text_open) {
 	menu_open = !menu_open;
 	menu_select = 0;
 	menu_state = 0;
@@ -192,72 +223,48 @@ if (inputted == false) {
 
 //Textbox
 if (text_open) {
-	if (text_index < string_length(text_read))&&(text_pause < 1) {
-		text_index++;
-		text_char = string_char_at(text_read,text_index);
-		
-		if (text_char != "/") {
-			text_display += text_char
-			}
-			else
-			{
-			text_index ++;
-			text_command_char = string_char_at(text_read,text_index);
-			switch(text_command_char) {
-				case "w":
-				text_pause = 8;
-				break;
-				}
-			}
-			
-		if (text_char == ",") {
-			text_pause = 4;
-			}
-			
-		char_silent = false;
-		for (i=0; i<array_length(no_text_noise_table); i++) {
-			if (no_text_noise_table[i] == text_char) {
-				char_silent = true;
-				}
-			}
-		if (!char_silent) {
-			audio_play_sound(text_voice_table[text_voice],0,false);
-			}
-		}
-		
-	if (text_pause > 0) {
-		text_pause --;
-		}
+	func_text_engine_loop();
 	
-	if (keyboard_check_pressed(ord("X"))) {
+	if (b2p) {
 		text_display = text_read;
 		text_index = string_length(text_read);
 		}
 	
-	if keyboard_check_pressed(ord("Z")) && text_index >= string_length(text_read) {
+	if (b1p) && text_index >= string_length(text_read) {
 		if (global.TextTable[global.TextIndex][1]) {
 			//Continue
 			text_index = 0; //Character Index
 			global.TextIndex++; //Dialog ID
-			text_read = global.TextTable[global.TextIndex][3]
+			text_read = global.TextTable[global.TextIndex][3];
 			text_display = "";
-			text_voice = global.TextTable[global.TextIndex][0]
+			text_voice = global.TextTable[global.TextIndex][0];
+			
+			switch(global.TextTable[global.TextIndex][2]) {
+				case 8:
+					//spamton dumpster
+					audio_play_sound(snd_smile,0,0);
+				break;
+				}
 			}
 			else
 			{
 			//Stop
 			text_open = false;
+			global.Current_Interacting_Object = -1;
 			
 			switch(global.TextTable[global.TextIndex][2]) {
 				case 1://
-				room_goto(rm_TVrm);
+					global.CurrentMusic = mus_prejevil;
+					room_goto(rm_Battle);
 				break;
 				case 8:
+					//spamton dumpster
+					audio_stop_sound(snd_smile);
 				break;
 				case 9:
-				global.Party = 1;
-				instance_create(obj_IceKid.x,obj_IceKid.y,obj_Partner_Snowkid);
-				instance_destroy(obj_IceKid);
+					global.Party = 1;
+					instance_create(obj_IceKid.x,obj_IceKid.y,obj_Partner_Snowkid);
+					instance_destroy(obj_IceKid);
 				break;
 				}
 
@@ -307,3 +314,6 @@ if (transition_io) {
 		room_goto(transition_room);
 		}
 	}
+	
+global.Soul_X = (x-camera_get_view_x(view_camera[0]))*2;
+global.Soul_Y = (y-camera_get_view_y(view_camera[0]))*2.6666666;

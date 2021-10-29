@@ -1,3 +1,5 @@
+func_controls();
+
 if active == 1
     {
     alarm_set(0,2);
@@ -5,26 +7,26 @@ if active == 1
     active = 2;
     }
     
-if keyboard_check_pressed(ord("Z")) or gamepad_button_check_pressed(0,gp_face1)
+if (b1p)
     {
-    if message == stop
+    if mess == stop
         {
         obj_FirstTV.go = 1;
         }
         else
         {
-        if active == 2 and string_length(talk[message]) == read
+        if active == 2 and string_length(talk[mess]) == read
             {
             read = 0;
-            audio_stop_sound(snd_J1+message);
-            message += 1;
-            audio_play_sound(snd_J1+message,1,0);
+            audio_stop_sound(jevil_talktable[mess]);
+            mess += 1;
+            audio_play_sound(jevil_talktable[mess],1,0);
             }
         }
     }
 
-if keyboard_check_pressed(ord("X")) or gamepad_button_check_pressed(0,gp_face3)
+if (b2p)
     {
-    read = string_length(talk[message]);
+    read = string_length(talk[mess]);
     }
 

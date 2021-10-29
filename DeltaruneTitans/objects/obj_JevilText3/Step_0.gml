@@ -13,7 +13,7 @@ if okgoback > 0
             {
             global.Deaths += 1;
             }
-        room_goto(rm_Fight);
+        room_goto(rm_Battle);
         }
     }
 

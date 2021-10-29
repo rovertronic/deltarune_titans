@@ -58,7 +58,7 @@ talk[38] = "Perhaps, you could stop now!";
 talk[39] = "You don't have that much time!";
 talk[40] = "At this point, you're wasting time.";
 talk[41] = "Either your dying on purpose...";
-talk[42] = "...or you realy suck at this game...";
+talk[42] = "...or you really suck at this game...";
 talk[43] = "...but are determined to finish it.";
 talk[44] = "...regardless.";
 talk[45] = "I'm getting tired of talking...";
@@ -81,6 +81,6 @@ talk[61] = "I'm making fucking mac and cheese";
 talk[62] = "AND NOBODY IS GOING TO STOP ME!";
 talk[63] = "...";
 talk[64] = "...";
-talk[65] = "G A S T E R I S C O M I N G";
+talk[65] = "..?";
 talk[66] = "...";
 

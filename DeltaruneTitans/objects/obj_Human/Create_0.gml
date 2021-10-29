@@ -1,3 +1,9 @@
+if (global.StartMusic != global.CurrentMusic) {
+	audio_stop_sound(global.CurrentMusic);
+	audio_play_sound(global.StartMusic,0,true);
+	global.CurrentMusic = global.StartMusic;
+	}
+
 if (global.StartMatter) {
 	x=global.StartX;
 	y=global.StartY;
@@ -18,6 +24,8 @@ walkspeed = 3;
 transition_io = true;
 transition_fade = 1;
 transition_room = noone;
+
+item_select = 0;
 
 dir = 0;
 
@@ -40,17 +48,10 @@ interact_object = noone;
 
 textbox_y_offset = 118;
 
-no_text_noise_table = [" ","?","!","*",".","'",","]
-text_voice_table = [snd_Talk,snd_TalkSpamton,snd_TalkRegular,snd_TalkIceKid]
+global.MaxHP = 16+(global.LV*4);
+global.HP = global.MaxHP;
 
-text_open = false;
-text_voice = 1;
-text_index = 0;
-text_pause = 0;
-text_char = "";
-text_read = "";
-text_display = "";
-text_command_char = "";
+func_init_text_engine();
 
 switch(global.Party) {
 	case 1:

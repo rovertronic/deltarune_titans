@@ -4,11 +4,11 @@ if cool > 0
     }
 if sfight == 0
     {
-    image_index = place_meeting(x,y,obj_Soul);
+    image_index = place_meeting(x,y,obj_Soul_Old);
     }
     else
     {
-    if place_meeting(x,y,obj_Soul)
+    if place_meeting(x,y,obj_Soul_Old)
         {
         image_index = 1;
         }
@@ -31,7 +31,7 @@ if global.Gamepad == 3
     icheck = keyboard_check_pressed(ord("Z"))
     }
 
-if place_meeting(x,y,obj_Soul) and icheck and cool == 0
+if place_meeting(x,y,obj_Soul_Old) and icheck and cool == 0
     {
     instance_destroy(obj_Act);
     audio_play_sound(snd_Attack,1,0);

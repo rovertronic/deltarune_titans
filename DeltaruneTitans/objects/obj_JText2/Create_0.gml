@@ -1,6 +1,6 @@
 surface_resize(application_surface, 1280, 720);
 
-message = 0;
+mess = 0;
 read = 0;
 active = 0;
 stop = 5;
@@ -22,3 +22,11 @@ if (global.star_table[0][3] == 2)
     talk[5] = "I hate this wheelchair!";
     }
 
+jevil_talktable = [
+snd_J1,
+snd_J2,
+snd_J3,
+snd_J4,
+snd_J5,
+snd_J6
+];
