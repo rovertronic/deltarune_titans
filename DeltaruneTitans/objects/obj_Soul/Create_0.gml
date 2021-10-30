@@ -1,6 +1,7 @@
 //window_set_size(room_width,room_height);
 surface_resize(application_surface, 853, 480);
 global.SafeInventory = global.Inventory;
+global.NoHitRun = true;
 
 if (!audio_is_playing(global.CurrentMusic)) {
 	audio_play_sound(global.CurrentMusic,0,true);
@@ -27,7 +28,9 @@ partner_button_sprites = [
 [spr_BiteButton,spr_Defend],
 ]
 
-soul_attack = 1;
+soul_attack = 1+(global.UpgradeATK/2);
+soul_defense = 0+global.UpgradeDF;
+soul_defense_temporary = 0;
 soul_speed = 0;
 soul_speed_temporary = 0;
 regeneration = 0;
@@ -101,9 +104,12 @@ battle_box_h_v = 115;
 
 global.Graze = 0;
 global.DissalowGraze = 0;
-global.MaxHP = 16+(global.LV*4);
+global.MaxHP = 16+(global.LV*4)+global.UpgradeHP;
+if (global.RetryMode==2) {
+	global.MaxHP = 1;
+	}
 global.HP = global.MaxHP;
-hud_hp_offset = global.LV*4;
+hud_hp_offset = global.MaxHP - 16;
 global.MP = 0;
 global.Super = false;
 global.BossQue = 0;

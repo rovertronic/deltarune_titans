@@ -148,7 +148,18 @@ if (transition_io) {
 							break;
 							}
 					break;
-					case 3://exit menu
+					case 3://retry mode
+						options_value[3]++;
+						if (options_value[3] > 2) {
+							options_value[3] = 0;
+							}
+						global.RetryMode = options_value[3];
+					break;
+					case 4://music
+						global.MusicOn = !global.MusicOn;
+						options_value[4] = !options_value[4];
+					break;
+					case 5://exit menu
 						global.Gamepad = gamepad_temporary;
 						submenu_open = false;
 					break;

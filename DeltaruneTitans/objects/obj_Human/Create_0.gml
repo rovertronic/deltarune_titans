@@ -19,7 +19,7 @@ dirtable=[
 sliding = false;
 jumpout = true;
 
-walkspeed = 3;
+walkspeed = 3+global.UpgradeOWSP;
 
 transition_io = true;
 transition_fade = 1;
@@ -48,7 +48,7 @@ interact_object = noone;
 
 textbox_y_offset = 118;
 
-global.MaxHP = 16+(global.LV*4);
+global.MaxHP = 16+(global.LV*4)+global.UpgradeHP;
 global.HP = global.MaxHP;
 
 func_init_text_engine();

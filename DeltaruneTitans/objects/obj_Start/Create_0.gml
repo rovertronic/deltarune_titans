@@ -112,15 +112,26 @@ start_lvs = [
 ]
 
 options_text = [
-["Fullscreen","Windowed"],["Keyboard","Mouse","Controller"],["Delete Save","Are you sure?","Are you DOUBLE sure???","Save Deleted."],["Exit"]
+["Fullscreen","Windowed"],["Keyboard","Mouse","Controller"],["Delete Save","Are you sure?","Are you DOUBLE sure???","Save Deleted."],["Normal Retry","Quick Retry","No-Hit Retry"],["Music ON","Music OFF"],["Exit"]
 ]
+options_value = [window_get_fullscreen(),0,0,global.RetryMode,!global.MusicOn,0];
+switch(global.Gamepad) {
+	case 0:
+	options_value[1] = 1;
+	break;
+	case 1:
+	options_value[1] = 2;
+	break;
+	}
 menu_text = [
-"Items","Credits","Options","Exit"
+"Character","Credits","Options","Exit"
 ]
-
-options_value = [0,0,0,0];
 //options_spacing = room_height/(array_length(options_value)+1);
 menu_spacing = room_width/(array_length(menu_text)+1);
+
+upgrade_text = ["+5 HP","+1 ATK","+2 DEF","+10 HP","+Overworld SPD","+2 ATK","+2x TP Gain","+Double Dip"];
+upgrade_stars = [2,3,4,6,7,9,11,13];
+global.UpgradeLevel = 0;
 
 //
 global.Current_Interacting_Object = -1;
@@ -225,6 +236,42 @@ for (i=0;i<8;i++) {
 	// i had to write a fucking sorting algorithm!!!
 	// 
 ini_close();
+
+global.UpgradeHP = 0;
+global.UpgradeDF = 0;
+global.UpgradeATK = 0;
+global.UpgradeOWSP = 0;
+global.UpgradeTP = 1;
+
+//upgrades
+for (i=0;i<array_length(upgrade_stars);i++) {
+	if (global.Stars >= upgrade_stars[i]) {
+		global.UpgradeLevel++;
+		switch(i) {
+			case 0:
+			global.UpgradeHP+=5;
+			break;
+			case 1:
+			global.UpgradeATK++;
+			break;
+			case 2:
+			global.UpgradeDF+=2;
+			break;
+			case 3:
+			global.UpgradeHP+=10;
+			break;
+			case 4:
+			global.UpgradeOWSP+=1;
+			break;
+			case 5:
+			global.UpgradeATK+=2;
+			break;
+			case 6:
+			global.UpgradeTP+=1;
+			break;
+			}
+		}
+	}
 
 global.SafeInventory = global.Inventory;
 

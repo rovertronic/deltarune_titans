@@ -476,7 +476,12 @@ if (player_move) {//player turn
 		case 8://death
 			soul_menu_x = x;
 			soul_menu_y = y;
-			timer ++;
+			if (global.RetryMode > 0) {
+				timer += 20;
+				} else {
+				timer ++;
+				}
+				
 			if (timer == 60) {
 				audio_play_sound(snd_break2,0,0);
 				for (i=0;i<6;i++) {
@@ -487,7 +492,6 @@ if (player_move) {//player turn
 				hide_soul = true;
 				}
 			if (timer > 120) {
-				global.NoHitRun = true;
 				global.Inventory = global.SafeInventory;
 				room_goto(room);
 				}
@@ -567,6 +571,7 @@ if (player_move) {//player turn
 	if (enemy_attack_time < 1) {
 		global.Enemy_Attack = 0;
 		soul_speed_temporary = 0;
+		soul_defense_temporary = 0;
 		player_move = true;
 		partner_move = false;
 		menu_state = 0;
@@ -615,4 +620,5 @@ if ((global.HP < 1)&&(!dead)) {
 	timer = 0;
 	cooldown = 0;
 	audio_stop_sound(global.CurrentMusic);
+
 	}

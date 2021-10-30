@@ -1,5 +1,7 @@
 global.TextIndex = 0;
 global.Gamepad = 3;
+global.RetryMode = 0;
+global.MusicOn = true;
 
 //Text voices: 0: Jevil; 1: Spamton; 2: Default; 3: Snowkid; 4: Battle Letterbox
 
@@ -169,7 +171,7 @@ global.TextTable = [
     ];
 
 global.Item_Names = [
-"",
+"---",
 "Tensionbit",
 "Repel Gel",
 "Sea Tea",

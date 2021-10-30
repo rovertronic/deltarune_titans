@@ -3,7 +3,9 @@ if place_meeting(x,y,soul) && (soul.cooldown == 0) && (!soul.player_move)
     {
     soul.cooldown = 40;
 	global.DissalowGraze = 40;
-    global.HP -= hazard_damage;
+	total_damage = hazard_damage - (soul.soul_defense+soul.soul_defense_temporary);
+	total_damage = clamp(total_damage,1,99);
+    global.HP -= total_damage;
     audio_play_sound(snd_Hurt,1,0);
     global.NoHitRun = false;
     }
@@ -12,7 +14,7 @@ if (place_meeting(x,y,soul))&&(graze_cooldown < 1)&&(global.DissalowGraze < 1) &
 	global.Graze = 10;
 	graze_cooldown = hazard_graze_cooldown;
 	soul.enemy_attack_time -= 5;
-	soul.tp_reserve += .25;
+	soul.tp_reserve += .25*global.UpgradeTP;
 	audio_play_sound(snd_Graze,0,false);
 	}
 soul.mask_index = spr_Soul_Hitbox;

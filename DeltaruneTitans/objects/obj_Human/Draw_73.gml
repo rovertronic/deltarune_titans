@@ -18,7 +18,7 @@ if (menu_open) {
 			draw_set_halign(fa_left);
 			draw_set_valign(fa_top);
 			draw_text_transformed(80+camera_get_view_x(view_camera),camera_get_view_y(view_camera)+25,
-			"\"Frisk"+global.Party_Names[global.Party]+"\"\n\nLV " + string(global.LV) + "\nHP " + string(global.MaxHP) + "/" + string(global.MaxHP) + "\n\nAT 0(0)    EXP:0\nDF 0(0)    NEXT:" + string(global.XP_Table[global.LV]) + "\n\nWEAPON: Stick\n\ARMOR: Bandage\nGOLD: 0"
+			"\"Frisk"+global.Party_Names[global.Party]+"\"\n\nLV " + string(global.LV) + "\nHP " + string(global.MaxHP) + "/" + string(global.MaxHP) + "\n\nAT " + string(global.UpgradeATK) + "(0)    EXP:0\nDF " + string(global.UpgradeDF) + "(0)    NEXT:" + string(global.XP_Table[global.LV]) + "\n\nWEAPON: Stick\n\ARMOR: Bandage\nGOLD: 0"
 			,.75,.75,0);
 		break;
 		case 2:

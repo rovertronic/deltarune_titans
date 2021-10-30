@@ -89,7 +89,7 @@ gpu_set_colorwriteenable(1,1,1,0);
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_center);
 	
-			draw_text(room_center_x,64+(i*32),options_text[i][options_value[i]])
+			draw_text(room_center_x,64+(i*16),options_text[i][options_value[i]])
 			
 			draw_sprite(spr_control_guide, gamepad_temporary,room_center_x, 250);
 			}
@@ -103,12 +103,23 @@ gpu_set_colorwriteenable(1,1,1,0);
 			);
 		break;
 		case 2://items
-			draw_set_color(c_white);
+			draw_set_color(c_lime);
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_center);
+			draw_text(room_center_x,48,"Items:");
+			draw_set_color(c_white);
 			for (i=0; i<8; i++) {
-				draw_text(room_center_x,64+(i*32),global.Item_Names[global.Inventory[i]]);
+				draw_text(room_center_x,64+(i*12),global.Item_Names[global.Inventory[i]]);
 				}
+			draw_line(0,158,room_width,158);
+			draw_set_color(c_red);
+			draw_text(room_center_x,174,"Upgrades:");
+			draw_set_color(c_white);
+			for (i=0; i<global.UpgradeLevel; i++) {
+				draw_text(room_center_x,194+(i*12),upgrade_text[i]);
+				}
+			draw_set_color(c_gray);
+			draw_text(room_center_x,194+(global.UpgradeLevel*12),"Next: (" + string(global.Stars) + "/" + string(upgrade_stars[global.UpgradeLevel]) + ")" );
 		break;
 		case 3:
 			draw_set_color(c_white);

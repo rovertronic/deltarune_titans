@@ -1,4 +1,8 @@
-message = global.Deaths;
+if (global.RetryMode > 0) {
+	room_goto(rm_Battle);
+	}
+
+messag = global.Deaths;
 read = 0;
 active = 0;
 stop = 5;
@@ -16,6 +20,7 @@ switch(current_weekday)
    }
 
 alarm_set(1,60);
+
 talk[0] = "That was so, so much fun!#Play again, will you?";
 talk[1] = "And around the carousel we go!";
 talk[2] = "Third times a charm!#Yipee, Yipee, Yay!";
