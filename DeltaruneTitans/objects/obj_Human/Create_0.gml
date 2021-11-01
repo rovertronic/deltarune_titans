@@ -1,4 +1,4 @@
-if (global.StartMusic != global.CurrentMusic) {
+if (global.StartMusic != global.CurrentMusic)&&(global.MusicOn) {
 	audio_stop_sound(global.CurrentMusic);
 	audio_play_sound(global.StartMusic,0,true);
 	global.CurrentMusic = global.StartMusic;

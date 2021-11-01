@@ -7,7 +7,7 @@ inputted = false;
 
 sliding = place_meeting(x,y,obj_Ice);
 jumpout = false;
-if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding))
+if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding)&&(!global.CutsceneMode))
     {
     if (!jumpout)&&dc
         {
@@ -183,6 +183,7 @@ if (menu_open) {
 				case 2:
 				menu_open = false;
 				func_init_text(36);
+				//func_init_text(131);
 				audio_play_sound(snd_Phone,0,false);
 				break;
 				}
@@ -210,7 +211,7 @@ if (menu_open) {
 	}
 
 //Menu Toggle
-if (b3p) && (!text_open) {
+if (b3p) && (!text_open) && (!global.CutsceneMode) {
 	menu_open = !menu_open;
 	menu_select = 0;
 	menu_state = 0;
@@ -242,7 +243,23 @@ if (text_open) {
 			switch(global.TextTable[global.TextIndex][2]) {
 				case 8:
 					//spamton dumpster
-					audio_play_sound(snd_smile,0,0);
+					activate = false;
+					if (instance_number(obj_Dumpster) == 1) {
+						if (distance_to_object(obj_Dumpster) < 60) {
+							activate = true;
+							}
+						}
+						
+					if (activate) {
+						global.TextIndex = 130;
+						text_read = global.TextTable[global.TextIndex][3];
+						text_voice = global.TextTable[global.TextIndex][0];
+						global.CutsceneMode = true;
+						}
+						else
+						{
+						audio_play_sound(snd_smile,0,0);
+						}
 				break;
 				}
 			}
@@ -253,9 +270,12 @@ if (text_open) {
 			global.Current_Interacting_Object = -1;
 			
 			switch(global.TextTable[global.TextIndex][2]) {
-				case 1://
+				case 1://start battle
 					global.CurrentMusic = mus_prejevil;
 					room_goto(rm_Battle);
+				break;
+				case 2://activate dumpster
+					obj_Dumpster.state = 1;
 				break;
 				case 8:
 					//spamton dumpster

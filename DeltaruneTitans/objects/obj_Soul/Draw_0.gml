@@ -12,7 +12,7 @@ if (player_move) {
 			draw_text(65,270,text_display);
 		break;
 		case 1:
-			draw_sprite_ext(spr_AttackHUD,0,320,260,1,1,0,c_white,1);
+			draw_sprite_ext(spr_AttackHUD,0,320,260,attack_hud_size,1,0,c_white,attack_hud_size);
 			draw_sprite(spr_AttackBar,attack_stick_anim,attack_stick_x,260);
 		break;
 		case 2: //act
@@ -137,6 +137,15 @@ if (!player_move)||(menu_state != 0) {
 			draw_sprite(partner_button_sprites[global.Party][i],0,32+(154*i),430);
 			}
 		}
+	}
+
+//Draw KROMER for chapter 2 fihgt
+if (global.Chapter == 1) {
+	draw_set_font(font_battle);
+	draw_set_color(c_white);
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_top);
+	draw_text(5,5,"KROMER: " + string(round(soul_kromer_hud)));
 	}
 
 draw_set_color(c_black);

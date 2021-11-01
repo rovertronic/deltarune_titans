@@ -41,7 +41,7 @@ chapter_scroll_table = [0,0,0,1,2,2,2,2];
 
 chapter_rooms = [
 rm_OW1,
-rm_OW2,
+rm_OW2_sub3,
 rm_OW1,
 rm_OW1,
 rm_OW1,
@@ -138,8 +138,9 @@ global.Current_Interacting_Object = -1;
 //
 
 global.Chapter = 0;
+global.CutsceneMode = false;
 
-global.Party = 0; //1 = snowkid
+global.Party = 1; //1 = snowkid
 global.StartX = 0;
 global.StartY = 0;
 global.StartMatter = false;

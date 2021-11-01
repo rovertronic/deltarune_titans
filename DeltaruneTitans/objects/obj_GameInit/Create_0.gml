@@ -73,7 +73,7 @@ global.TextTable = [
 	
 	[2,false,0,"* The air rings with hints on\n  how to open the dumpster."], //52
 	
-	[1,false,0,"* USE YOUR [[Mobile Cellular\n  Device]] YOU [[Single-Celled\n  Organism]]!"], //53
+	[1,false,0,"* USE YOUR [Mobile Cellular\n  Device] YOU [Single-Celled\n  Organism]!"], //53
 	
 	//Item Descriptions
 	[2,false,0,"* Tensionbit\n  Raises TP by 32% in battle."], //54
@@ -168,6 +168,37 @@ global.TextTable = [
 	[0,true,0,"* Keep saving those souls, kid.\n* Save as many as you can."], //127
 	[0,true,0,"* Once you step out of that portal,\n  everything here, including me,\n  will cease to be."], //128
 	[0,false,0,"* I'll be rooting for you from\n  the shadows, lightner."], //129
+	
+	[1,false,2,"* HELLO, IS THIS G-"], //130
+	
+	[1,true,0,"* HOLY [CUNGADERO] !!"], //131
+	[1,true,0,"* WHERE DID MY [Dumpster Fire] OF\n  A [Domain name] SHIP OFF TOO??"], //132
+	[1,true,0,"* DID THE [data collection] TRUCK\n  DRIVER BRAKE THEIR\n  [free GPS app download]??"], //133
+	[1,true,0,"* WOAH.\n* [adolecent] VISITORS! !!"], //134
+	[1,true,0,"* WHAT WOULD [kids like you]\n  BE DOING IN A [hell] LIKE THIS?"], //135
+	[1,true,0,"* [Where are your parents?!]"], //136
+	[3,true,0,"* Well, I, Umm...    \n* That's what we were doing.     \n* Looking for my mom and dad."], //137
+	[1,false,1,"* IT MUST BE [Forecast: Heavy\n  Blizzard] OUT. TAKE SHELTER IN\n  MY [Prestegious Storefont], WHY\n  DON'T YOU?"], //138
+	
+	[1,false,0,"ENL4RG3 Y0URS3LF"], //139
+	[1,false,0,"MAKE DEALZ, NOT ENEMYS!"], //140
+	[1,false,0,"MERCY? LET'S MAKE [great deal!] FIRST!"], //141
+	
+	[0,false,0,"NO WAY, NO WAY! I WANT TO PLAY A GAME!"], //142
+	
+	[2,false,0,"* EXCHANGED 25% TP FOR 20 KROMER!\n* THE KROMER STOCK ROSE!\n* BUSINESS IS BOOMING!"], //143
+	[2,false,0,"* A DEAL IS A DEAL!\n* YOU LOST 10 HP...\n* HOWEVER, YOU GAINED 50% TP!"], //144
+	[2,false,0,"* A DEAL IS A DEAL!\n* YOU INVESTED IN KROMER!\n* YOUR KROMER DOUBLED!"], //145
+	[2,false,0,"* A DEAL IS A DEAL!\n* YOU GAINED 10 HP!\n* SPAMTON GAINED 100 HP!"], //146
+	[2,false,0,"* A DEAL IS A DEAL!\n* YOU LOST 2 DF...\n* HOWEVER, YOU GAINED 1 ATK!"], //147
+	[2,false,0,"* A DEAL IS A DEAL!\n* YOU LOST 15 HP...\n* HOWEVER, YOU GAINED 10 MAX HP!"], //148
+	[2,false,0,"* YOU WIN SOME, YOU LOSE SOME!\n* YOU LOST 99 HP!\n* CAN'T USE ITEMS FOR 2 TURNS!"], //149
+	[2,false,0,"* YOU WIN SOME, YOU LOSE SOME!\n* YOU GAINED 99 HP!\n* YOU GAINED 100% TP!"], //150
+	[2,false,0,"* A DEAL IS A DEAL!\n* YOU LOST 5 MAX HP...\n* HOWEVER, SPD INCREASED!"], //151
+	[2,false,0,"* A DEAL IS A DEAL!\n* THE TP WAS FLUSHED...\n* HOWEVER, TP GAIN DOUBLED!"], //152
+	[2,false,0,"* DEAL!"], //153
+	[2,false,0,"* DEAL!"], //154
+	[2,false,0,"* DEAL!"], //155
     ];
 
 global.Item_Names = [

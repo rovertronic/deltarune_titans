@@ -1,15 +1,15 @@
 {
   "spriteId": {
-    "name": "spr_pillar",
-    "path": "sprites/spr_pillar/spr_pillar.yy",
+    "name": "spr_diamond",
+    "path": "sprites/spr_diamond/spr_diamond.yy",
   },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_NPC",
-    "path": "objects/obj_NPC/obj_NPC.yy",
+    "name": "obj_HazardPar",
+    "path": "objects/obj_HazardPar/obj_HazardPar.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
@@ -26,15 +26,17 @@
   "eventList": [
     {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
     {"isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":7,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Overworld",
-    "path": "folders/Objects/Overworld.yy",
+    "name": "Objects",
+    "path": "folders/Objects.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_Moveable_Pillar",
+  "name": "obj_Evil_Letter",
   "tags": [],
   "resourceType": "GMObject",
 }

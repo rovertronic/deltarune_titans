@@ -157,6 +157,7 @@ if (player_move) {//player turn
 								attack_stick_x = 47;
 								attack_timer = 0;
 								attack_stick_moving = true;
+								attack_hud_size = 1;
 							break;
 							case 1:
 								audio_play_sound(snd_MenuSelect,0,0);
@@ -198,8 +199,10 @@ if (player_move) {//player turn
 								attack_stick_x = 47;
 								attack_timer = 0;
 								attack_stick_moving = true;
+								attack_hud_size = 1;
 							break;
 							case 1://defend
+								soul_defense_temporary = 1;
 								tp_reserve += 8;
 								menu_state = 6;
 								func_init_text(89);
@@ -227,8 +230,11 @@ if (player_move) {//player turn
 			if ((b1p)&&(attack_stick_moving)) {
 				attack_stick_moving = false;
 				attack_stick_damage = 300-(abs(attack_stick_x-320));
-				if (attack_stick_x < 310)&&(attack_stick_x>290) {
-					//attack_stick_damage = 400;
+				if (partner_move) {
+					attack_stick_damage /= 2;
+					}
+				if (abs(attack_stick_x-320)) < 5 {
+					attack_stick_damage *= 1.2;
 					}
 				tp_reserve += attack_stick_damage/80;
 				audio_play_sound(snd_Attack,0,0);
@@ -239,6 +245,9 @@ if (player_move) {//player turn
 				object.num_input = attack_stick_damage*(soul_attack/10);
 				global.Enemy_HP -= attack_stick_damage*(soul_attack/10);
 				hp_bar_timer = 40;
+				}
+			if (attack_timer > 40) {
+				attack_hud_size = lerp(attack_hud_size,0,.15);
 				}
 			if (attack_timer > 60) {
 				do_enemy_dialog();
@@ -267,10 +276,69 @@ if (player_move) {//player turn
 								menu_state = 6;
 								func_init_text(91);
 							break;
-							case 1://wait
-								menu_state = 6;
-								actstate = 1;
-								func_init_text(96);
+							case 1://deal
+								if (soul_kromer >= 10) {
+									deal_index ++;
+									if (deal_index > array_length(deal_table)-1) {
+										deal_index = 0;
+										func_scramble_array(deal_table);
+										}
+									deal = deal_table[deal_index];
+									if (deal != 1) {
+										soul_kromer -= 10;
+										}
+									
+									switch(deal) {
+										case 0:
+										global.HP -= 10;
+										tp_reserve+=25;
+										break;
+										case 1:
+										soul_kromer *= 2;
+										break;
+										case 2:
+										global.HP += 10;
+										global.Enemy_HP += 100;
+										break;
+										case 3:
+										soul_defense -= 2;
+										soul_attack += .5;
+										break;
+										case 4:
+										global.HP -= 15;
+										global.MaxHP += 10;
+										break;
+										case 5:
+										global.HP -= 99;
+										turns_noitem = 2;
+										break;
+										case 6:
+										global.HP += 99;
+										tp_reserve += 50;
+										break;
+										case 7:
+										soul_speed ++;
+										global.MaxHP -= 5;
+										break;
+										case 8:
+										tp_reserve -= 100;
+										global.UpgradeTP *= 2;
+										break;
+										}
+									global.HP = clamp(global.HP,1,global.MaxHP);
+									global.Enemy_HP = clamp(global.Enemy_HP,0,global.Enemy_MaxHP);
+									global.MaxHP = clamp(global.MaxHP,1,99);
+									func_init_text(144+deal);
+									menu_state = 6;
+									}
+							break;
+							case 2://exchange
+								if (global.MP >= 12) {
+									soul_kromer += 20;
+									tp_reserve -= 12;
+									menu_state = 6;
+									func_init_text(143);
+									}
 							break;
 							}
 					break;
@@ -402,6 +470,7 @@ if (player_move) {//player turn
 			if (b1p) {
 				switch(item_select_y) {
 					case 0:
+						soul_action_taken = 2;
 						do_enemy_dialog();
 					break;
 					case 1:
@@ -416,6 +485,7 @@ if (player_move) {//player turn
 			soul_menu_x = 67;
 			soul_menu_y = 280;
 			if (b1p) {
+				soul_action_taken = 1;
 				menu_state = 1;
 				}
 			if (b2p) {
@@ -570,6 +640,7 @@ if (player_move) {//player turn
 	enemy_attack_time --;
 	if (enemy_attack_time < 1) {
 		global.Enemy_Attack = 0;
+		soul_action_taken = 0;
 		soul_speed_temporary = 0;
 		soul_defense_temporary = 0;
 		player_move = true;
@@ -607,6 +678,7 @@ if (hp_bar_timer > 0) {
 	hp_bar_timer --;
 	}
 hp_bar_visual = lerp(hp_bar_visual,global.Enemy_HP,.2);
+soul_kromer_hud = lerp(soul_kromer_hud,soul_kromer,0.1);
 
 if ((global.HP < 1)&&(!dead)) {
 	global.Graze = 0;

@@ -12,3 +12,13 @@ if (global.Current_Interacting_Object == id) {
 		dialogid = dialoglist[interacts];
 		}
 	}
+	
+if (state == 1) {
+	timer ++;
+	if (timer > 30) {
+		state = 2;
+		image_index = 1;
+		audio_play_sound(snd_noise,0,0);
+		instance_create(x+48,y+10,obj_OW_Spamton);
+		}
+	}
