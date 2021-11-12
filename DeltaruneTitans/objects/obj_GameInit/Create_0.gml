@@ -302,7 +302,7 @@ global.TextTable = [
 	[3,false,0,"* This salesman smells."], //235
 	[3,false,0,"* What is this, a scam?"], //236
 	
-	[3,false,0,"* This salesman smells REALLY BAD."], //237
+	[3,false,0,"* This salesman smells REALLY\n  BAD."], //237
 	[3,false,0,"* Who thought falling would be\n  so fun!"], //238
 	[3,false,0,"* I want to go home..."], //239
 	[3,false,0,"* This is the creepy puppet\n  I kept seeing in my head!"], //240

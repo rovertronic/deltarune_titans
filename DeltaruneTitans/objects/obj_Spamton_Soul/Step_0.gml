@@ -130,8 +130,10 @@ switch(state) {
 				}
 				
 			if ((obj_Soul.enemy_attack_time < 100)&&(global.Enemy_ID == 2)) {
-				obj_Glove.healing = true;
-				obj_Glove.sprite_index = spr_thumbup;
+				if (instance_exists(obj_Glove)) {
+					obj_Glove.healing = true;
+					obj_Glove.sprite_index = spr_thumbup;
+					}
 				}
 		break;
 		case 5://bookworm

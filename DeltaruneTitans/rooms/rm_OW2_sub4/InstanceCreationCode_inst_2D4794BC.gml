@@ -1,0 +1,1 @@
+starpower = 5;

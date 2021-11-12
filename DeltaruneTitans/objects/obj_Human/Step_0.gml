@@ -14,11 +14,11 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding)&&(!global.CutsceneMo
         sprite_index = spr_FriskDown;
 		image_xscale = 1;
         y += walkspeed;
+		while(place_meeting(x,y,obj_Solid)) {
+			y--;
+			}
 		dir = 0;
 		inputted = true;
-		if (place_meeting(x,y,obj_Solid)) {
-			y -= walkspeed;
-			}
 		sliding = place_meeting(x,y,obj_Ice);
 		jumpout = sliding;
         }
@@ -27,11 +27,12 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding)&&(!global.CutsceneMo
         sprite_index = spr_FriskUp;
 		image_xscale = 1;
         y -= walkspeed;
+		while(place_meeting(x,y,obj_Solid)) {
+			y++;
+			}
+
 		dir = 3;
 		inputted = true;
-		if (place_meeting(x,y,obj_Solid)) {
-			y += walkspeed;
-			}
 		sliding = place_meeting(x,y,obj_Ice);
 		jumpout = sliding;
         }
@@ -40,11 +41,11 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding)&&(!global.CutsceneMo
         sprite_index = spr_FriskSide;
         image_xscale = 1;
         x -= walkspeed;
+		while(place_meeting(x,y,obj_Solid)) {
+			x++;
+			}
 		dir = 1;
 		inputted = true;
-		if (place_meeting(x,y,obj_Solid)) {
-			x += walkspeed;
-			}
 		sliding = place_meeting(x,y,obj_Ice);
 		jumpout = sliding;
         }
@@ -52,12 +53,14 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding)&&(!global.CutsceneMo
         {
 		dir = 2;
         x += walkspeed;
+		while(place_meeting(x,y,obj_Solid)) {
+			x--;
+			}
         sprite_index = spr_FriskSide;
         image_xscale = -1;
 		inputted = true;
-		if (place_meeting(x,y,obj_Solid)) {
-			x -= walkspeed;
-			}
+
+
 		sliding = place_meeting(x,y,obj_Ice);
 		jumpout = sliding;
         }

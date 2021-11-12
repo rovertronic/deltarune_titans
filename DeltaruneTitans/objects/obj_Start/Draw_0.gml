@@ -23,6 +23,10 @@ for (i = chapter_scroll_value; ((i < chapter_total)&&(i < chapter_scroll_value+5
 				draw_sprite_ext(spr_Stars,global.star_table[i][i2],432+(64*i2),(e*chapter_spacing)+2,1,1,0,selectcolor,1);
 				}
 				
+			if (global.MiniStarTable[i] == ministar_max[i]) {
+				draw_sprite_ext(spr_Stars,1,380,(e*chapter_spacing)+2,1,1,0,selectcolor,1);
+				}
+				
 			for (i2 = 0; i2 < global.MiniStarTable[i]; i2++) {
 				draw_sprite_ext(spr_ministar,0,76+(8*i2),(e*chapter_spacing)+40,1,1,0,selectcolor,1);
 				}

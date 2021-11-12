@@ -41,7 +41,7 @@ chapter_scroll_table = [0,0,0,1,2,2,2,2];
 
 chapter_rooms = [
 rm_OW1,
-rm_OW2_sub3,
+rm_OW2,
 rm_OW1,
 rm_OW1,
 rm_OW1,
@@ -129,8 +129,8 @@ menu_text = [
 //options_spacing = room_height/(array_length(options_value)+1);
 menu_spacing = room_width/(array_length(menu_text)+1);
 
-upgrade_text = ["+5 HP","+1 ATK","+2 DEF","+10 HP","+Overworld SPD","+2 ATK","+2x TP Gain","+Double Dip"];
-upgrade_stars = [2,3,4,6,7,9,11,13];
+upgrade_text = ["+5 HP","+1 ATK","+2 DEF","+Overworld SPD","+5 HP","+2x TP Gain","+2 ATK","+Double Dip"];
+upgrade_stars = [2,3,4,6,7,9,11,15];
 global.UpgradeLevel = 0;
 
 //
@@ -140,7 +140,7 @@ global.Current_Interacting_Object = -1;
 global.Chapter = 0;
 global.CutsceneMode = false;
 
-global.Party = 1; //1 = snowkid
+global.Party = 0; //1 = snowkid
 global.StartX = 0;
 global.StartY = 0;
 global.StartMatter = false;
@@ -280,16 +280,16 @@ for (i=0;i<array_length(upgrade_stars);i++) {
 			global.UpgradeDF+=2;
 			break;
 			case 3:
-			global.UpgradeHP+=10;
-			break;
-			case 4:
 			global.UpgradeOWSP+=1;
 			break;
+			case 4:
+			global.UpgradeHP+=5;
+			break;
 			case 5:
-			global.UpgradeATK+=2;
+			global.UpgradeTP+=1;
 			break;
 			case 6:
-			global.UpgradeTP+=1;
+			global.UpgradeATK+=2;
 			break;
 			}
 		}

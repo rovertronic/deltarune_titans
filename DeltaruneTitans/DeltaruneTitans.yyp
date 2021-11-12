@@ -34,6 +34,7 @@
     {"id":{"name":"spr_Strike","path":"sprites/spr_Strike/spr_Strike.yy",},"order":11,},
     {"id":{"name":"spr_Fight","path":"sprites/spr_Fight/spr_Fight.yy",},"order":12,},
     {"id":{"name":"spr_Spindle","path":"sprites/spr_Spindle/spr_Spindle.yy",},"order":13,},
+    {"id":{"name":"obj_Shortcut","path":"objects/obj_Shortcut/obj_Shortcut.yy",},"order":14,},
     {"id":{"name":"spr_Wheelchair","path":"sprites/spr_Wheelchair/spr_Wheelchair.yy",},"order":14,},
     {"id":{"name":"tile_pillar","path":"tilesets/tile_pillar/tile_pillar.yy",},"order":4,},
     {"id":{"name":"spr_Spamton_Hand","path":"sprites/spr_Spamton_Hand/spr_Spamton_Hand.yy",},"order":90,},
@@ -308,6 +309,7 @@
     {"id":{"name":"snd_smile","path":"sounds/snd_smile/snd_smile.yy",},"order":28,},
     {"id":{"name":"rm_Fight","path":"rooms/rm_Fight/rm_Fight.yy",},"order":7,},
     {"id":{"name":"rm_GameOver","path":"rooms/rm_GameOver/rm_GameOver.yy",},"order":9,},
+    {"id":{"name":"rm_OW2_sub4","path":"rooms/rm_OW2_sub4/rm_OW2_sub4.yy",},"order":26,},
     {"id":{"name":"rm_OW2_sub3","path":"rooms/rm_OW2_sub3/rm_OW2_sub3.yy",},"order":22,},
     {"id":{"name":"rm_End1","path":"rooms/rm_End1/rm_End1.yy",},"order":11,},
     {"id":{"name":"snd_ultraswing","path":"sounds/snd_ultraswing/snd_ultraswing.yy",},"order":29,},
@@ -354,6 +356,7 @@
     {"roomId":{"name":"rm_Battle","path":"rooms/rm_Battle/rm_Battle.yy",},},
     {"roomId":{"name":"rm_OW1_sub1","path":"rooms/rm_OW1_sub1/rm_OW1_sub1.yy",},},
     {"roomId":{"name":"rm_OW1_sub2","path":"rooms/rm_OW1_sub2/rm_OW1_sub2.yy",},},
+    {"roomId":{"name":"rm_OW2_sub4","path":"rooms/rm_OW2_sub4/rm_OW2_sub4.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Sprites.yy","order":1,"resourceVersion":"1.0","name":"Sprites","tags":[],"resourceType":"GMFolder",},
