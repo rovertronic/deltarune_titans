@@ -1,3 +1,4 @@
+i_index_float = 0;
 sintimer = 0;
 state = 0;
 room_center_x = room_width/2;
@@ -20,12 +21,33 @@ random_direction = 0;
 image_speed = 0;
 text = "";
 spit_text = [
-"DEALS!!!",
-"SPAM!",
-"CUM!",
-"SHIT!"
+"DEALS",
+"KROMER",
+"BUY",
+"SELL",
+"STOCKS",
+"SALES",
+"BRAND"
 ]
+spit_text_choice = 0;
+spit_text_index = 1;
 
-soul_amount = 7-global.SavedSouls;
+color_r = 255;
+color_g = 255;
+color_b = 255;
 
-soul_colors = [c_red,c_yellow,c_blue,c_lime,c_orange,c_purple,c_aqua];
+soul_amount = 6-global.SavedSouls;
+
+soul_attack = 0;
+soul_attack_index = global.SavedSouls;
+soul_attack_hide = true;
+
+soul_colors = [c_yellow,c_blue,c_lime,c_orange,c_purple,c_aqua,c_aqua];
+soul_color_two = [
+[255,255,0],
+[0,0,255],
+[0,255,0],
+[255,127,0],
+[255,0,255],
+[0,255,255],
+]

@@ -4,6 +4,7 @@ global.RetryMode = 0;
 global.MusicOn = true;
 
 //Text voices: 0: Jevil; 1: Spamton; 2: Default; 3: Snowkid; 4: Battle Letterbox
+//5: Sigma Spamton 6: Genocide Spamton
 
 //[Voice,Continue,Fun Value, String]
 global.TextTable = [
@@ -122,9 +123,9 @@ global.TextTable = [
 	[4,false,0,"* You tried to use an item,\n  but you had potion sickness."], //90
 	
 	[4,false,0,"* SPAMTON 10 ATK 20 DEF\n* He wants to make a DEAL,\n  but don't give him your MONEY!"], //91
-	[4,false,0,"* SPAMTON SIGMA 50 ATK 25 DEF\n* 2nd of the seven titans.\n* Infused with 6 stolen souls."], //92
+	[4,false,0,"* unused"], //92
 	[4,true,0,"* SPAMTON OMEGA 99 ATK 99 DEF\n* Has figured out what's going\n  on. Wants to stop you."], //93
-	[4,false,0,"* Keep cracking at those souls.\n* We need to release more\n  DETERMINATION."], //94
+	[4,false,0,"* Don't stop fighting.\n* We need those souls.\n* We need DETERMINATION."], //94
 	[4,false,0,"* You sliced a wire!\n* A human soul was freed."], //95
 	[4,false,0,"* You don't want to fight now.\n* It's best to wait it out."], //96
 	
@@ -141,7 +142,7 @@ global.TextTable = [
 	[4,false,0,"* You really hate flies."], //106
 	[4,false,0,"* Smells like rotting wood."], //107
 	[4,false,0,"* Spamton Sigma maniacally\n  cackles."], //108
-	[4,false,0,"* Bed bugs, Lice, larvae."], //109
+	[4,false,0,"* Bed bugs, Lice, and larvae\n  scuttle all around you."], //109
 	[4,false,0,"* You scream in fear./w\n* You are really afraid\n  of heights."], //110
 	[4,false,0,"* The falling never stops."], //111
 	
@@ -196,9 +197,147 @@ global.TextTable = [
 	[2,false,0,"* YOU WIN SOME, YOU LOSE SOME!\n* YOU GAINED 99 HP!\n* YOU GAINED 100% TP!"], //150
 	[2,false,0,"* A DEAL IS A DEAL!\n* YOU LOST 5 MAX HP...\n* HOWEVER, SPD INCREASED!"], //151
 	[2,false,0,"* A DEAL IS A DEAL!\n* THE TP WAS FLUSHED...\n* HOWEVER, TP GAIN DOUBLED!"], //152
-	[2,false,0,"* DEAL!"], //153
+	[2,false,0,"* THESE DEALS SUCK!\n* YOUR ANGER ROSE...\n* YOU GAINED 3 ATK!"], //153
 	[2,false,0,"* DEAL!"], //154
 	[2,false,0,"* DEAL!"], //155
+	
+	[1,false,0,"TRANSMIT KROMER"], //156
+	[1,false,0,"THEY CALLED ME THE EMAIL GUY"], //157
+	[1,false,0,"HELP"], //158
+	[1,false,0,"OW"], //159
+	[1,false,0,"HELLO? [HEART SHAPED OBJECTS] ?!?!"], //160
+	
+	[4,true,0,"* SPAMTON SIGMA 50 ATK 25 DEF\n* 2nd of the seven titans.\n* Infused with 6 stolen souls."], //161
+	[4,false,0,"* Looks like you can cut the\n  strings to free the souls!\n* Check changed to Cut String!"], //162
+	
+	[2,false,0,"* EXCHANGED 50% TP FOR 20 KROMER!\n* KROMER IS DEFLATED!\n* SPAMTON IS INFLATED!"], //163
+	
+	[5,false,0,"PIPIS ENLARGED"], //164
+	
+	[4,false,0,"* SPAMTON SIGMA'S DEFENSE\n  DROPPED TO 0!\n* NOW'S YOUR CHANCE!"], //165
+	[4,false,0,"* THE POWER OF THE HUMAN\n  SOULS RESTORE YOU.\n* HP MAXED OUT!"], //166
+	
+	[5,false,0,"WATCH OUT FOR THE BIG SHOTS"], //167
+	[5,false,0,"DON'T GET KICKED GRACEFULLY"], //168
+	[5,false,0,"COOKING UP SOME HOT BEATS"], //169
+	[5,false,0,"BOUTTA BUST YOUR KNEECAPS"], //170
+	[5,false,0,"WRITING PROMPT! SPELL ICUP!"], //171
+	[5,false,0,"THIS HOOCHIE MAMA'S SASSY!"], //172
+	
+	[5,false,0,"HEHEH"], //173
+	
+	[5,false,0,"MY POWERS ?! YOU HAVE GOT TO BE !!!"], //174
+	
+	//pacifist
+	[5,true,0,"EVEN AFTER ALL THAT"], //175
+	[5,true,0,"I STILL COULDN'T DEFEAT"], //176
+	[5,true,0,"STILL COULDN'T DEFEAT YOU"], //177
+	[5,true,0,"I"], //178
+	[5,true,0,"MY PRIDE"], //179
+	[5,true,0,"MY HUBRIS"], //180
+	[5,true,0,"MY TICKET TO FREE DOM WAS KILLING YOU"], //181
+	[5,true,0,"OR SO I WAS TOLD"], //182
+	[5,true,0,"YOU SAVED THE SOULS"], //183
+	[5,true,0,"YOU GAVE THEM A SECOND CHANCE"], //184
+	[5,true,0,"I DESERVE MY FATE"], //185
+	[5,true,0,"MY PURSUIT OF PERSONAL FREEDOM"], //186
+	[5,true,0,"AT THE COST OF OTHER'S"], //187
+	[5,true,0,"SO, SO, SELFISH"], //188
+	[5,true,0,"THE OL BUSINESS IS CLOSING DOWN"], //189
+	[5,true,0,"CONTINUE FORTH, KIDDO"], //190
+	[5,false,1,"EVERYONE NEEDS A SECOND CHANCE"], //191
+	
+	//neutral
+	[5,true,0,"EVEN AFTER ALL THAT"], //192
+	[5,true,0,"I STILL COULDN'T DEFEAT"], //193
+	[5,true,0,"STILL COULDN'T DEFEAT YOU"], //194
+	[5,true,0,"..."], //195
+	[5,true,0,"YOU DEFENDED YOURSELF WELL"], //196
+	[5,true,0,"AGAINST A MONSTER LIKE ME"], //197
+	[5,true,0,"YOU GOT GUTS KIDDO"], //198
+	[5,true,0,"THE OL BUSINESS IS CLOSING DOWN"], //199
+	[5,true,0,"I'LL BE WATCHING YOU"], //200
+	[5,false,1,"FROM THE SHADOWS"], //201 FV 1 Ends battle
+	
+	//genocide
+	[5,true,0,"EVEN AFTER ALL THAT"], //202
+	[5,true,0,"I STILL COULDN'T DEFEAT"], //203
+	[5,true,0,"OH MY"], //204
+	[5,true,0,"I'M SLICED SPAM"], //205
+	[5,true,0,"I..."], //206
+	[6,true,2,"I CANNOT ALLOW THIS TO HAPPEN"], //207 //FV 2 changes sigma to omega
+	[6,true,2,"THE FILTHY SLIME YOU ARE"], //208
+	[6,true,0,"BOTH YOU FILTHY SLIMES"], //209
+	[6,true,0,"THESE INNOCENT SOULS"], //210
+	[6,true,0,"DO NOT BELONG TO YOU"], //211
+	[6,true,0,"DE TER MI NATION?"], //212
+	[6,true,0,"I CAN'T FEEL IT ON MY OWN"], //213
+	[6,true,0,"BUT WITH THE COMBINED WILL"], //214
+	[6,true,0,"OF THESE SOULS"], //215
+	[6,true,0,"I AM DETERMINED"], //216
+	[6,true,0,"DETERMINED TO KILL YOU"], //217
+	[6,true,0,"RIGHT HERE,"], //218
+	[6,false,3,"AND RIGHT NOW!!!"], //219 //FV 3 is 3rd phase, i guess
+	
+	[4,true,0,"* SPAMTON SIGMA 50 ATK 25 DEF\n* 2nd of the seven titans.\n* He has the souls I need."], //220
+	[4,true,0,"* You could cut the strings\n  to free the souls...\n* But I won't let you =)"], //221
+	[2,false,0,"* Remember who you belong to."], //222
+	
+	[6,false,1,"YOU MUST DIE"], //223
+	
+	[6,true,0,"NO..."], //224
+	[6,true,0,"NO!!!"], //225
+	[6,true,0,"IMPOSSIBLE"], //226
+	[6,true,0,"LITERALLY IMPOSSIBLE"], //227
+	[6,true,0,"YOU AND YOUR DAMN KARMA"], //228
+	[6,true,0,"KRIS... IT DOESN'T HAVE TO BE THIS WAY"], //229
+	[6,true,0,"TWO WRONGS DON'T MAKE A RIGHT"], //230
+	[6,false,1,"IT ISN'T TOO LATE TO CHANGE"], //231
+	
+	[4,false,0,"* End of the line, salesman.\n* You're about to go bankrupt."], //232
+	
+	[3,false,0,"* I can't.\n* You decided to spare him,\n  so I want to follow through."], //233
+	[3,false,0,"* No./w\n* We need to do as much damage\n  as possible."], //234
+	
+	[3,false,0,"* This salesman smells."], //235
+	[3,false,0,"* What is this, a scam?"], //236
+	
+	[3,false,0,"* This salesman smells REALLY BAD."], //237
+	[3,false,0,"* Who thought falling would be\n  so fun!"], //238
+	[3,false,0,"* I want to go home..."], //239
+	[3,false,0,"* This is the creepy puppet\n  I kept seeing in my head!"], //240
+	
+	[3,false,0,"* The humans took my family\n  from me. We need to\n  kill them all."], //241
+	[3,false,0,"* Sweet, sweet revenge."], //242
+	[3,false,0,"* I got nothing to lose."], //243
+	
+	[6,true,0,"COME AT ME"], //244 //0 hit
+	[6,false,0,"I KNOW YOU TWO WANT TO"],//245
+	[6,true,0,"WHAT WAS THAT?"],//246 // 1 hit
+	[6,false,0,"THAT WASN'T A VERY [BIG SHOT]"],//247
+	[6,true,0,"I CAN HEAR THE HUMANS"], //248 2 hit
+	[6,false,0,"LAUGHING AT YOU TWO"],//249
+	[6,true,0,"EVEN THAT MADDENED JESTER"],//250 3 hit 
+	[6,false,0,"CAN DO BETTER THAN THAT"],//251
+	[6,true,0,"EVEN [Data Expunged]"], //252 4 hit
+	[6,false,0,"CAN DO BETTER THAN THAT... HUH?"],//253
+	[6,true,0,"GIVE UP! MY DEFENSE"],//254 5 hit
+	[6,false,0,"MY DEFENSE IS SO HIGH"],//255
+	[6,true,0,"MY DEFENSE IS SO HIGH"], //256 6 hit
+	[6,false,0,"IT DOESN'T MATTER HOW BIG YOU ARE"],//257
+	[6,true,0,"THE HUMAN SOULS ARE WARNING ME"],//258 7 hit
+	[6,false,0,"THAT YOU ARE A WHIMP"],//259
+	[6,true,0,"THE HUMAN SOULS ARE WARNING ME"], //260 8 hit
+	[6,false,0,"THAT KARMA IS A [Female Dog]"],//261
+	[6,true,0,"OK, STOP THAT"],//262 9 hit
+	[6,false,0,"THERE'S NO WAY"],//263
+	[6,true,0,"HOLY CUNGADERO"], //264 10 hit
+	[6,false,0,"WHAT THE [Hell]"],//265
+	[6,true,0,"OH [defecate]"],//266 11 hit
+	[6,false,0,"ONE MORE BIG SHOT IS ALL IT WOULD TAKE"],//267
+	[6,true,0,"..."], //268 12 hit
+	[6,false,0,"HELP"],//269
+
     ];
 
 global.Item_Names = [
@@ -213,6 +352,7 @@ global.Item_Names = [
 
 title_timer = 0;
 title_state = 0;
+title_second_layer = 0;
 title_y = 0;
 title_grav = 0;
 title_fade_amount = 1;

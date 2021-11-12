@@ -8,7 +8,7 @@ if keyboard_check_pressed(vk_escape)
 slowdown_input = false;
 sped = 4+soul_speed+soul_speed_temporary;
 sped = 4+soul_speed+soul_speed_temporary;
-sped = lerp(sped,1,slowdown/10);
+sped = lerp(sped,2,slowdown/10);
 if (!dead) {
     if global.Gamepad == 0
         {
@@ -102,13 +102,14 @@ if y > battle_box_y_v+battle_box_h_v-8
     }
 	
 image_alpha = 1;
-image_blend = c_red;
+image_index = 0;
 if (cooldown > 0) {
 	if (floor(cooldown/4)%2) {
-		image_blend = make_color_rgb(127,0,0);
+		image_index = 1;
 		}
-    cooldown --;
-    }
+	cooldown --;
+	}
+
 if (turns_repel > 0) {
 	cooldown = 1;
 	image_alpha = 0.5;
@@ -139,7 +140,7 @@ if (player_move) {//player turn
 			if (lcp) {
 				select_main--;
 				}
-			select_main = clamp(select_main,0,3);
+			select_main = clamp(select_main,0,3-soul_nomercy);
 			if (partner_move) {
 				select_main = clamp(select_main,0,1);
 				}
@@ -194,18 +195,30 @@ if (player_move) {//player turn
 					case 1: //snowkid
 						switch(select_main) {
 							case 0://bite
-								audio_play_sound(snd_Menu,0,0);
-								menu_state = 5;
-								attack_stick_x = 47;
-								attack_timer = 0;
-								attack_stick_moving = true;
-								attack_hud_size = 1;
+								if (soul_action_taken != 2) {
+									audio_play_sound(snd_Menu,0,0);
+									menu_state = 5;
+									attack_stick_x = 47;
+									attack_timer = 0;
+									attack_stick_moving = true;
+									attack_hud_size = 1;
+									}
+									else
+									{
+									func_init_text(233);
+									}
 							break;
 							case 1://defend
-								soul_defense_temporary = 1;
-								tp_reserve += 8;
-								menu_state = 6;
-								func_init_text(89);
+								if (global.Run != 2) {
+									soul_defense_temporary = 1;
+									tp_reserve += 8;
+									menu_state = 6;
+									func_init_text(89);
+									}
+									else
+									{
+									func_init_text(234);
+									}
 							break;
 							}
 					break;
@@ -228,6 +241,17 @@ if (player_move) {//player turn
 				attack_timer ++;
 				}
 			if ((b1p)&&(attack_stick_moving)) {
+				
+				never_hurt = false;
+				
+				if (soul_attack_scripted) {
+					soul_attack = soul_attack_script_table[soul_attack_script_index];
+					soul_attack_script_index ++
+					if (soul_attack_script_index > 13) {
+						soul_attack_script_index = 13;
+						}
+					}
+				
 				attack_stick_moving = false;
 				attack_stick_damage = 300-(abs(attack_stick_x-320));
 				if (partner_move) {
@@ -245,12 +269,23 @@ if (player_move) {//player turn
 				object.num_input = attack_stick_damage*(soul_attack/10);
 				global.Enemy_HP -= attack_stick_damage*(soul_attack/10);
 				hp_bar_timer = 40;
+				if (global.Enemy_HP < 1) {
+					global.Enemy_HP = 0;
+					audio_stop_sound(global.CurrentMusic);
+					hide_box = true;
+					}
 				}
 			if (attack_timer > 40) {
 				attack_hud_size = lerp(attack_hud_size,0,.15);
 				}
 			if (attack_timer > 60) {
+				if (global.Enemy_HP < 1) {
+					partner_move = true;
+					}
 				do_enemy_dialog();
+				if (global.Enemy_HP < 1) {
+					partner_move = false;
+					}
 				}
 		break;
 		case 2: //act
@@ -277,63 +312,11 @@ if (player_move) {//player turn
 								func_init_text(91);
 							break;
 							case 1://deal
-								if (soul_kromer >= 10) {
-									deal_index ++;
-									if (deal_index > array_length(deal_table)-1) {
-										deal_index = 0;
-										func_scramble_array(deal_table);
-										}
-									deal = deal_table[deal_index];
-									if (deal != 1) {
-										soul_kromer -= 10;
-										}
-									
-									switch(deal) {
-										case 0:
-										global.HP -= 10;
-										tp_reserve+=25;
-										break;
-										case 1:
-										soul_kromer *= 2;
-										break;
-										case 2:
-										global.HP += 10;
-										global.Enemy_HP += 100;
-										break;
-										case 3:
-										soul_defense -= 2;
-										soul_attack += .5;
-										break;
-										case 4:
-										global.HP -= 15;
-										global.MaxHP += 10;
-										break;
-										case 5:
-										global.HP -= 99;
-										turns_noitem = 2;
-										break;
-										case 6:
-										global.HP += 99;
-										tp_reserve += 50;
-										break;
-										case 7:
-										soul_speed ++;
-										global.MaxHP -= 5;
-										break;
-										case 8:
-										tp_reserve -= 100;
-										global.UpgradeTP *= 2;
-										break;
-										}
-									global.HP = clamp(global.HP,1,global.MaxHP);
-									global.Enemy_HP = clamp(global.Enemy_HP,0,global.Enemy_MaxHP);
-									global.MaxHP = clamp(global.MaxHP,1,99);
-									func_init_text(144+deal);
-									menu_state = 6;
-									}
+								act_deal();
 							break;
 							case 2://exchange
 								if (global.MP >= 12) {
+									audio_play_sound(snd_buyitem,0,0);
 									soul_kromer += 20;
 									tp_reserve -= 12;
 									menu_state = 6;
@@ -342,24 +325,36 @@ if (player_move) {//player turn
 							break;
 							}
 					break;
-					case 1://Sigma Spamton
+					case 1://Sigma Spamton unchecked
 						switch(item_select_y) {
 							case 0://check
-								menu_state = 6;
-								func_init_text(92);
-							break;
-							case 1://slice string
-								if (global.MP >= 25) {
+								if (global.Run != 2) {
+									actstate = 4; //unlock options
 									menu_state = 6;
-									func_init_text(95);
-									tp_reserve -= 25;
-									audio_play_sound(snd_Attack,0,0);
+									func_init_text(161);
+									}
+									else
+									{
+									func_init_text(220);
+									menu_state = 6;
 									}
 							break;
+							case 1: //deal
+								act_deal();
+							break;
+							case 2: //heavy exchange
+								if (global.MP >= 25) {
+									audio_play_sound(snd_buyitem,0,0);
+									soul_kromer += 20;
+									tp_reserve -= 25;
+									menu_state = 6;
+									func_init_text(163);
+									}
 							}
 					break;
 					case 2://Omega Spamton
-					
+						menu_state = 6;
+						func_init_text(93);
 					break;
 					case 3://Jevil
 						switch(item_select_y) {
@@ -368,6 +363,39 @@ if (player_move) {//player turn
 								func_init_text(114);
 							break;
 							}
+					break;
+					case 4: //Sigma Spamton Checked
+					switch(item_select_y) {
+						case 0://slice string
+
+							if (global.MP >= 37) {
+								global.WorkSouls ++;
+								soul_freed_minigame = true;
+								menu_state = 6;
+								func_init_text(95);
+								tp_reserve -= 37;
+								audio_play_sound(snd_Attack,0,0);
+								}
+						break;
+						case 1: //deal
+							act_deal();
+						break;
+						case 2: //heavy exchange
+							if (global.MP >= 25) {
+								audio_play_sound(snd_buyitem,0,0);
+								soul_kromer += 20;
+								tp_reserve -= 25;
+								menu_state = 6;
+								func_init_text(163);
+								}
+						break;
+						}
+					break;
+					case 5:
+						func_init_text(166);
+						global.HP = global.MaxHP;
+						audio_play_sound(snd_Heal,0,0);
+						menu_state = 6;
 					break;
 					}
 				}
@@ -485,7 +513,9 @@ if (player_move) {//player turn
 			soul_menu_x = 67;
 			soul_menu_y = 280;
 			if (b1p) {
-				soul_action_taken = 1;
+				if (!partner_move) {
+					soul_action_taken = 1;
+					}
 				menu_state = 1;
 				}
 			if (b2p) {
@@ -585,15 +615,102 @@ if (player_move) {//player turn
 					}
 					else
 					{
-					end_turn();
+					if (global.TextTable[global.TextIndex][2] == 1) { //end battle
+						battle_end_star = 1; //1 = neutral
+						battle_end_subending = 0;
+						switch(global.Run) {
+							case 0://started pacifist
+								menu_state = 11;
+								battle_end = true;
+								battle_end_subending = 1;
+								battle_end_text = "Aborted Pacifist Ending";
+								if (global.SavedSouls == 6) {
+									battle_end_star = 0; //0 = pacifist
+									battle_end_subending = 2;
+									battle_end_text = "Pacifist Ending";
+									if (global.Enemy_HP == 0) {
+										battle_end_subending = 3;
+										battle_end_text = "Aggressive Pacifist Ending";
+										}
+									if (never_hurt) {
+										battle_end_subending = 4;
+										battle_end_text = "True Pacifist Ending";
+										}
+									}
+							break;
+							case 1://started neutral
+								menu_state = 11;
+								battle_end = true;
+								battle_end_subending = 5;
+								battle_end_text = "Neutral Ending";
+								if (global.SavedSouls == 0) {
+									battle_end_subending = 6;
+									battle_end_text = "Neutral Soulcrusher Ending";
+									}
+								if (global.SavedSouls == 6) {
+									battle_end_subending = 7;
+									battle_end_text = "Neutral Pacifist Ending";
+									}
+							break;
+							case 2://locked in soulcrusher
+								menu_state = 11;
+								battle_end = true;
+								battle_end_subending = 8;
+								battle_end_text = "Soulcrusher Ending";
+								if (soul_attack_script_index == 13) {
+									battle_end_subending = 9;
+									battle_end_text = "Brutal Soulcrusher Ending";
+									}
+								battle_end_star = 2; //2 = soulcrusher
+							break;
+							}
+						func_set_mini_star(battle_end_subending);
+						func_setstar(battle_end_star);
+						}
+						else //normal close
+						{
+						//3rd form
+						if (global.TextTable[global.TextIndex][2] == 3) {
+							switch(global.Enemy_ID) {
+								case 2: //sigma spamton into omega
+									menu_state = 0;
+									actstate = 2;
+									global.Enemy_ID = 3;
+									global.Enemy_Name = "Omega Spamton";
+									global.Enemy_HP = 1000000;
+									global.Enemy_MaxHP = 1000000;
+									global.Enemy_Attack = 0;
+									soul_attack = .1;
+									soul_attack_scripted = true;
+									hide_box = false;
+									textbox_alpha = .6;
+									partner_move = false;
+									curr_partymember = 0;
+									image_yscale = 1;
+									image_blend = c_red;
+									
+									e_attacktable = [[1,400],[2,400],[3,400],[4,400]];
+									e_attacktable = func_scramble_array(e_attacktable);
+									e_attackindex = 0;
+									
+									func_init_text(232);
+								break;
+								}
+							}
+							else
+							{
+							hide_box = false;
+							end_turn();
+							}
+						}
 					}
 				}
 				
 			if (battle_transition) {
 				battle_transition_timer++;
 				
-				switch(global.Chapter) {
-					case 0:
+				switch(global.Enemy_ID) {
+					case 0://jevil
 						if (battle_transition_timer > 60) {
 							whitefade += 0.016;
 							}
@@ -604,10 +721,83 @@ if (player_move) {//player turn
 							room_goto(rm_TVrm);
 							}
 					break;
+					case 1://spamton
+						if (battle_transition_timer > 90) {
+							whitefade += 0.02;
+							}
+						if (whitefade > 1) {
+							battle_transition = false;
+							battle_transition_timer = 0;
+							whitefade = 0;
+							
+							hp_bar_size = 200;
+							textbox_alpha = .8;
+							global.CurrentMusic = mus_SigmaSpamton;
+							global.StartMusic = mus_spamton;
+							audio_play_sound(global.CurrentMusic,0,true);
+							
+							if (global.Run == 2) {
+								soul_attack = 999;
+								}
+							
+							global.Enemy_ID = 2;
+							global.Enemy_Name = "Sigma Spamton";
+							global.Enemy_HP = (global.Enemy_HP/global.Enemy_MaxHP)*2000;
+							global.Enemy_MaxHP = 2000;
+							global.Enemy_Attack = 0;
+							instance_destroy(obj_Battle_Spamton);
+							global.Enemy_Object = instance_create_layer(320,200,"Enemy",obj_Battle_SigmaSpamton);
+							for (i = -1; i <2; i += 2) {
+								object = instance_create_layer(320,200,"Enemy",obj_Spamton_Hand);
+								object.target_x = 320+(i*250);
+								if (i > 0) {
+									object.hand_id = 1;
+									object.image_xscale = -1;
+									handobject[0] = object;
+									}
+									else
+									{
+									handobject[1] = object;
+									}
+								}
+								
+							for (i=global.SavedSouls;i<6;i++) {
+								object = instance_create_layer(-30,-30,"Souls",obj_Spamton_Soul);
+								object.image_blend = soul_colors[i];
+								object.soul_id = i;
+								object.soul_parent = handobject[0];
+								if (i > 2) {
+									object.soul_parent = handobject[1];
+									}
+								}
+							
+							instance_create_layer(0,0,"Background_Objects",obj_BG_Dumpster);
+							actstate = 1;
+							e_attacktable = [[2,30],[1,30],[3,30]];
+							e_attacktable = func_scramble_array(e_attacktable);
+							menu_state = 10;
+							hide_box = true;
+							curr_partymember = 0;
+							partner_move = false;
+							
+							func_init_text(164);
+							}
+					break
 					}
 				}
 			func_text_engine_loop();
 			global.Enemy_Object.text = text_display;
+		break;
+		case 10: //cutscene
+			hide_soul = true;
+		break;
+		case 11:
+			hide_soul = true;
+			battle_end_fade = lerp(battle_end_fade,1,.1);
+			if (timer > 120) {
+				room_goto(rm_Start);
+				}
+			timer ++;
 		break;
 		}
 
@@ -650,7 +840,7 @@ if (player_move) {//player turn
 		battle_box_y = 260;
 		battle_box_w = 546;
 		battle_box_h = 115;
-		
+	
 		global.TotalTurns++;
 		
 		if (turns_noitem > 0) {
@@ -661,6 +851,21 @@ if (player_move) {//player turn
 			}
 		
 		func_init_text(irandom_range(actstate_text_ranges[actstate][0],actstate_text_ranges[actstate][1]));
+		
+		if (soul_freed_minigame) {
+			global.SavedSouls ++;
+			soul_freed_minigame = false;
+			if (global.SavedSouls == 6) {
+				switch(global.Enemy_ID) {
+					case 2:
+						soul_attack = 12;
+						soul_invincible = true;
+						actstate = 5;
+						func_init_text(165);
+					break;
+					}
+				}
+			}
 		}
 	}
 	
@@ -672,6 +877,9 @@ if (tp_reserve < 0) {
 	tp_reserve ++;
 	global.MP--;
 	}
+if ((global.MP > 50)&&(!player_move)) {
+	soul_kromer += global.MP-50;
+	}
 global.MP = clamp(global.MP,0,50);
 
 if (hp_bar_timer > 0) {
@@ -680,17 +888,24 @@ if (hp_bar_timer > 0) {
 hp_bar_visual = lerp(hp_bar_visual,global.Enemy_HP,.2);
 soul_kromer_hud = lerp(soul_kromer_hud,soul_kromer,0.1);
 
+//cant die if invincible
+if (soul_invincible) {
+	global.HP = clamp(global.HP,1,global.MaxHP);
+	}
+
 if ((global.HP < 1)&&(!dead)) {
 	global.Graze = 0;
 	global.HP = 0;
 	graze_cooldown = 100;
 	dead = true;
 	audio_play_sound(snd_Crack,0,0);
-	image_index = 1;
 	player_move = true;
 	menu_state = 8;
 	timer = 0;
 	cooldown = 0;
 	audio_stop_sound(global.CurrentMusic);
-
+	}
+	
+if (global.HP < 1) {
+	image_index = 2;
 	}

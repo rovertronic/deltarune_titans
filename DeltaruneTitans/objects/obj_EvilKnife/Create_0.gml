@@ -1,0 +1,12 @@
+event_inherited();
+image_xscale = 1;
+image_yscale = 1;
+hazard_damage = 8;
+hazard_graze_cooldown = 60;
+image_alpha = 1;
+home_x = x;
+home_y = y;
+bullet_speed = 0;
+bullet_distance = 0;
+timer = 0;
+aim_angle = 0;

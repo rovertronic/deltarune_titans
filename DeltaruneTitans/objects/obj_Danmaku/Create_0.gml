@@ -1,0 +1,11 @@
+image_speed = 0;
+event_inherited();
+image_xscale = 1;
+image_yscale = 1;
+hazard_damage = 5;
+hazard_graze_cooldown = 30;
+image_alpha = 1;
+glow_color = c_red;
+aim_angle = 0;
+bullet_speed = 0;
+bullet_curve = 0;

@@ -171,6 +171,9 @@ global.Party_Names = [
 //
 global.Deaths = 0;
 global.SavedSouls = 0;
+global.WorkSouls = 0;
+
+global.Intensity = 0;
 
 global.Run = 0; //0 = pacifist, 1=neutral, 2=genocide
 
@@ -178,6 +181,10 @@ global.Run = 0; //0 = pacifist, 1=neutral, 2=genocide
 //init save variables
 global.chapters_played = [false,false,false,false,false,false,false,false,false,false];
 global.Stars = 0;
+
+global.MiniStarTable = [0,0,0,0,0,0,0,0,0,0];
+ministar_max = [3,9,1,1,1,1,1,1,1,1];
+
 global.star_table = [
 //the fourth "star" is just the highest star you've ever gotten anywhere
 [0,0,0,0],
@@ -210,6 +217,8 @@ runs_unlocked = [
 //load
 ini_open("Deltarune_Titans_Save.ini");
 
+//main stars
+
 for (iy = 0; iy < 10; iy ++) {
 	for (ix = 0; ix < 4; ix ++) {
 		global.star_table[iy][ix] = ini_read_real(string(iy),string(ix),0);
@@ -224,6 +233,18 @@ for (iy = 0; iy < 10; iy ++) {
 			}
 		}
 	}
+
+
+//mini stars
+for (iy = 0; iy < 10; iy ++) {
+	for (ix = 0; ix < ministar_max[iy]; ix ++) {
+		global.MiniStarTable[iy] += ini_read_real(string(iy)+"mini",string(ix),0);
+		}
+	if (global.MiniStarTable[iy] == ministar_max[iy]) {
+		global.Stars ++;
+		}
+	}
+
 
 //inventory
 for (i=0;i<8;i++) {

@@ -20,5 +20,8 @@ if (state == 1) {
 		image_index = 1;
 		audio_play_sound(snd_noise,0,0);
 		instance_create(x+48,y+10,obj_OW_Spamton);
+		global.StartMusic = mus_spamton;
+		global.CurrentMusic = mus_spamton;
+		audio_play_sound(global.StartMusic,0,true);
 		}
 	}

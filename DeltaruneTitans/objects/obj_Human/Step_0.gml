@@ -247,6 +247,7 @@ if (text_open) {
 					if (instance_number(obj_Dumpster) == 1) {
 						if (distance_to_object(obj_Dumpster) < 60) {
 							activate = true;
+							audio_stop_sound(global.CurrentMusic);
 							}
 						}
 						
@@ -271,7 +272,6 @@ if (text_open) {
 			
 			switch(global.TextTable[global.TextIndex][2]) {
 				case 1://start battle
-					global.CurrentMusic = mus_prejevil;
 					room_goto(rm_Battle);
 				break;
 				case 2://activate dumpster

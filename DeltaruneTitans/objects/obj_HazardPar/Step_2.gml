@@ -1,16 +1,29 @@
+if (healing) {
+	image_blend = c_lime;
+	}
+
 soul=obj_Soul;
 if place_meeting(x,y,soul) && (soul.cooldown == 0) && (!soul.player_move)
     {
-    soul.cooldown = 40;
-	global.DissalowGraze = 40;
-	total_damage = hazard_damage - (soul.soul_defense+soul.soul_defense_temporary);
-	total_damage = clamp(total_damage,1,99);
-    global.HP -= total_damage;
-    audio_play_sound(snd_Hurt,1,0);
-    global.NoHitRun = false;
+	if (!healing) {
+	    soul.cooldown = 40;
+		global.DissalowGraze = 40;
+		total_damage = hazard_damage - (soul.soul_defense+soul.soul_defense_temporary);
+		total_damage = clamp(total_damage,1,99);
+	    global.HP -= total_damage;
+	    audio_play_sound(snd_Hurt,1,0);
+	    global.NoHitRun = false;
+		}
+		else
+		{
+		global.HP += hazard_damage;
+		global.HP = clamp(global.HP,0,global.MaxHP);
+		audio_play_sound(snd_Heal,0,0);
+		instance_destroy();
+		}
     }
 soul.mask_index = spr_SoulGraze;
-if (place_meeting(x,y,soul))&&(graze_cooldown < 1)&&(global.DissalowGraze < 1) && (!soul.player_move) {
+if (place_meeting(x,y,soul))&&(graze_cooldown < 1)&&(global.DissalowGraze < 1) && (!soul.player_move) && (!healing){
 	global.Graze = 10;
 	graze_cooldown = hazard_graze_cooldown;
 	soul.enemy_attack_time -= 5;

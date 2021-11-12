@@ -9,3 +9,5 @@ image_alpha = 0.1;
 total_damage = 0;
 
 soul = -1;
+
+healing = false;

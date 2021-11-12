@@ -9,6 +9,12 @@ if (global.StartMatter) {
 	y=global.StartY;
 	}
 
+myname = "Frisk";
+if (global.Run == 2) {
+	myname = "Kris";
+	}
+
+
 dirtable=[
 [0,1],
 [-1,0],

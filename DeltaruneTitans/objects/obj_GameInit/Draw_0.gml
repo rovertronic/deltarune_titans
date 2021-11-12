@@ -5,8 +5,7 @@ draw_set_color(c_white);
 
 switch(title_state) {
 	case 0:
-	draw_text(room_width/2,(room_height/2)-128,"An Undertale / Deltarune Fangame");
-	draw_text(room_width/2,(room_height/2)+128,"By Rovert");
+	draw_sprite_ext(spr_Rovert,1,room_width/2,room_height/2,2,2,0,c_white,title_second_layer);
 	draw_sprite_ext(spr_Rovert,0,room_width/2,room_height/2,2,2,0,c_white,1);
 	break;
 	case 1:

@@ -1,7 +1,11 @@
 event_inherited();
-image_xscale = .5;
-image_yscale = .5;
+image_xscale = .75;
+image_yscale = .75;
 hazard_damage = 6;
 hazard_graze_cooldown = 15;
 image_alpha = 1;
 char = "A";
+sintimer = 0;
+home_y = y;
+timer = 0;
+letgo = false;

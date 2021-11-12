@@ -22,6 +22,11 @@ for (i = chapter_scroll_value; ((i < chapter_total)&&(i < chapter_scroll_value+5
 			for (i2 = 0; i2 < 3; i2++) {
 				draw_sprite_ext(spr_Stars,global.star_table[i][i2],432+(64*i2),(e*chapter_spacing)+2,1,1,0,selectcolor,1);
 				}
+				
+			for (i2 = 0; i2 < global.MiniStarTable[i]; i2++) {
+				draw_sprite_ext(spr_ministar,0,76+(8*i2),(e*chapter_spacing)+40,1,1,0,selectcolor,1);
+				}
+				
 			
 			}
 			else
@@ -99,7 +104,7 @@ gpu_set_colorwriteenable(1,1,1,0);
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_center);
 			draw_text(room_center_x,room_height/2,
-			"Undertale/Deltarune:\nToby Fox\n\nVoice Acting:\nJevil - UnknownMeta\n\nMusic:\nChapter 1 - RoomTone"
+			"Undertale/Deltarune:\nToby Fox\n\nVoice Acting:\nChapter 1 - its cazsu\n\nMusic:\nChapter 1 - RoomTone\nChapter 2 - RoomTone\nAll other music: Toby"
 			);
 		break;
 		case 2://items

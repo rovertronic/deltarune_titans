@@ -30,7 +30,7 @@ if global.Destoul == ide + 1 and dead == 0
     {
     dead = 1;
     audio_play_sound(snd_Crack,0,0);
-    image_index = 1;
+    image_index = 2;
     global.KK += 1;
     if ide == 0
         {

@@ -16,6 +16,10 @@ if (title_y > room_height-32) {
 	title_grav = (-title_grav/2);
 	}
 
+if ((title_timer > 60) && (title_state==0)) {
+	title_second_layer = lerp(title_second_layer,1,.1);
+	}
+
 if (title_timer > 150) {
 	title_timer = 0;
 	title_fade_io = true;
