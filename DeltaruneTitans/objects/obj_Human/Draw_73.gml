@@ -12,13 +12,13 @@ if (text_open) {
 
 if (menu_open) {
 	draw_sprite_ext(spr_StatMenu,(menu_state>0),camera_get_view_x(view_camera),camera_get_view_y(view_camera)-10,0.75,0.75,0,c_white,1)	
-	draw_sprite_ext(spr_Soul,0,camera_get_view_x(view_camera)+22,camera_get_view_y(view_camera)+73+(13*menu_select),.5,.5,0,c_red,1)
+	draw_sprite_ext(global.Soul_Skins[global.Current_Soul_Skin],0,camera_get_view_x(view_camera)+22,camera_get_view_y(view_camera)+73+(13*menu_select),.5,.5,0,c_red,1)
 	switch(menu_state) {
 		case 1:
 			draw_set_halign(fa_left);
 			draw_set_valign(fa_top);
 			draw_text_transformed(80+camera_get_view_x(view_camera),camera_get_view_y(view_camera)+25,
-			"\""+myname+global.Party_Names[global.Party]+"\"\n\nLV " + string(global.LV) + "\nHP " + string(global.MaxHP) + "/" + string(global.MaxHP) + "\n\nAT " + string(global.UpgradeATK) + "(0)    EXP:0\nDF " + string(global.UpgradeDF) + "(0)    NEXT:" + string(global.XP_Table[global.LV]) + "\n\nWEAPON: Stick\n\ARMOR: Bandage\nGOLD: 0"
+			"\""+myname+global.Party_Names[global.Party]+"\"\n\nLV " + string(global.LV) + "\nHP " + string(global.MaxHP) + "/" + string(global.MaxHP) + "\n\nAT 0(" + string(global.UpgradeATK) + ")    EXP:0\nDF 0(" + string(global.UpgradeDF) + ")    NEXT:" + string(global.XP_Table[global.LV]) + "\n\nWEAPON:" + chapter_equipment[global.Equipment][0] + "\n\ARMOR:" + chapter_equipment[global.Equipment][1] + "\nGOLD: 0"
 			,.75,.75,0);
 		break;
 		case 2:
@@ -38,6 +38,6 @@ if (menu_open) {
 	
 draw_set_color(c_black);
 draw_set_alpha(transition_fade);
-draw_rectangle(0,0,room_width,room_height,false);
+draw_rectangle(0,0,camera_get_view_x(view_camera[0])+360,camera_get_view_y(view_camera[0])+180,false);
 draw_set_alpha(1);
 draw_set_color(c_white);

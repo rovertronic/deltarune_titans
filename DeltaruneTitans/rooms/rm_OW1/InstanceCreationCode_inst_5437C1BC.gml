@@ -1,1 +1,0 @@
-starpower = 2;

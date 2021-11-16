@@ -2,22 +2,34 @@
 surface_resize(application_surface, 853, 480);
 global.SafeInventory = global.Inventory;
 
+sprite_index = global.Soul_Skins[global.Current_Soul_Skin];
+
+global.Intensity = 0;
+
 global.WorkSouls = global.SavedSouls;
 if (global.SavedSouls == 0) {
 	global.NoHitRun = true;
 	}
 
 //i am addicted to arrys
-chapter_start_music = [
-mus_prejevil,
-mus_spamton
-];
-global.CurrentMusic = chapter_start_music[global.Chapter];
-global.StartMusic = chapter_start_music[global.Chapter];
-
-if (!audio_is_playing(global.CurrentMusic))&&(global.MusicOn) {
-	audio_play_sound(global.CurrentMusic,0,true);
+//jk i had to change it bc of sus
+layer_id = layer_get_id("Background");
+chapter_start_music = mus_prejevil;
+switch(global.Encounter) {
+	case 0://jevvel
+		layer_destroy(layer_id);
+	break;
+	case 1://sussy spamton
+		layer_destroy(layer_id);
+		chapter_start_music = mus_spamton;
+	break;
+	case 20://devol
+		chapter_start_music = mus_Knightmare;
+	break;
 	}
+
+global.CurrentMusic = chapter_start_music;
+global.StartMusic = chapter_start_music;
 
 //ending stuff
 battle_end = false;
@@ -34,10 +46,15 @@ dead = false;
 
 object = -1;
 
+talks = 0;
+
 x = global.Soul_X;
 y = global.Soul_Y;
 soul_menu_x = x;
 soul_menu_y = y;
+
+soul_distance = 0;
+soul_bound = false;
 
 soul_colors = [c_yellow,c_blue,c_lime,c_orange,c_purple,c_aqua,c_aqua];
 
@@ -59,7 +76,8 @@ partner_button_sprites = [
 ]
 
 soul_action_taken = 0;
-soul_attack = 1+(global.UpgradeATK/2);
+soul_attack = 1+(global.UpgradeATK/6);
+soul_defense = 0+(global.UpgradeDF/3);
 
 soul_nomercy = 0;
 if (global.Run == 2) {
@@ -70,7 +88,6 @@ soul_attack_scripted = false;
 soul_attack_script_table = [.1,.3,2,10,200,800,999,3000,7000,60000,100000,150000,999999,999999];
 soul_attack_script_index = 0;
 
-soul_defense = 0+global.UpgradeDF;
 soul_defense_temporary = 0;
 soul_speed = 0;
 soul_speed_temporary = 0;
@@ -95,16 +112,18 @@ act_table = [
 "* Check", //Genocide Spamton 2
 "* Check", //Jevil 3 
 "* Cut String - 74% TP\n* Deal - 10 KROMER\n* Exchange - 50% TP", //Sigma Spamton Checked 4
-"* Soul Healing" //Sigma Spamton Pacifist 5
+"* Soul Healing", //Sigma Spamton Pacifist 5
+"* Check\n* Talk", //Devil 6
 ];
-act_table_amnt = [2,2,0,0,2,0];
+act_table_amnt = [2,2,0,0,2,0,2];
 actstate_text_ranges = [
 [97,101],//spamton 0
 [102,111],//spamton sigma unchecked 1 
 [232,232],//omega spamton 2
 [112,113],//jevil 3 
 [102,111],//spamton sigma checked 4
-[165,165]//spamton sigma checked 5
+[165,165],//spamton sigma checked 5
+[321,323],//devil 6
 ];
 
 partner_text_ranges = [
@@ -113,7 +132,8 @@ partner_text_ranges = [
 [241,243],//omega spamton 2
 [0,0],//jevil 3 
 [237,240],//spamton sigma checked 4
-[237,240]//spamton sigma checked 5
+[237,240],//spamton sigma checked 5
+[0,0],//devil 6
 ];
 
 player_move = true;
@@ -214,8 +234,15 @@ global.TotalTurns = 0;
 e_attacktable = [[0,30]];
 e_attackindex = 0;
 
+//ENEMY IDS BE LIKE
+//0: jevil
+//1: spamton
+//2: sigma spamton
+//3: omega spamton
+//4: devil
+
 //set encounters
-switch(global.Chapter) {
+switch(global.Encounter) {
 	case 0:
 		global.Enemy_ID = 0;
 		global.Enemy_Name = "Jevil";
@@ -235,6 +262,16 @@ switch(global.Chapter) {
 		actstate = 0;
 		e_attacktable = [[2,240],[1,360],[3,360]];
 		e_attacktable = func_scramble_array(e_attacktable);
+	break;
+	case 20:
+		global.Enemy_ID = 4;
+		global.Enemy_Name = "Devil";
+		global.Enemy_HP = 200;
+		global.Enemy_MaxHP = 200;
+		global.Enemy_Object = instance_create_layer(room_width/2,200,"Enemy",obj_Battle_Devil);
+		e_attacktable = [[2,300],[1,360],[3,240]];
+		e_attacktable = func_scramble_array(e_attacktable);
+		actstate = 6;
 	break;
 	}
 
@@ -305,7 +342,13 @@ function do_enemy_dialog() {
 					}
 				
 				if (soul_action_taken == 1) {
-					func_init_text(140);
+					if (irandom(1) == 1) {
+						func_init_text(158);
+						}
+						else
+						{
+						func_init_text(140);
+						}
 					}
 				if (soul_action_taken == 2) {
 					func_init_text(141);
@@ -318,7 +361,13 @@ function do_enemy_dialog() {
 					}
 			break;
 			case 2://Sigma Spamton
-				func_init_text(173);
+			
+				func_init_text(286);
+				switch(e_attacktable[e_attackindex][0]) {
+					case 9:
+					func_init_text(284);
+					break;
+					}
 				
 				if (soul_freed_minigame) {
 					func_init_text(167+global.SavedSouls);
@@ -356,6 +405,35 @@ function do_enemy_dialog() {
 					func_init_text(224);
 					}
 			break;
+			case 4://devil
+				func_init_text(332);
+				if (global.HP < 6) {
+					func_init_text(333+irandom(2));
+					}
+				
+				if (global.Enemy_HP == 0) {
+					if (global.NoHitRun) {
+						func_init_text(374);
+						}
+						else
+						{
+						func_init_text(371);
+						}
+					}
+				
+				if (soul_action_taken == 3) {
+					audio_stop_sound(global.CurrentMusic);
+					func_init_text(327);
+					}
+					
+				if (soul_action_taken == 4) {
+					func_init_text(336+talks);
+					talks++;
+					if (talks == 7) {
+						audio_stop_sound(global.CurrentMusic);
+						}
+					}
+			break;
 			}
 	
 		menu_state = 9;
@@ -363,6 +441,17 @@ function do_enemy_dialog() {
 	}
 
 function end_turn() {
+
+	global.Intensity = 0;
+	switch(global.Enemy_ID) {
+		case 4://devil
+			global.Intensity += (global.Enemy_HP < global.Enemy_MaxHP/2)||(talks > 2);
+		break;
+		default://everyone else
+			global.Intensity += ((global.Enemy_HP < global.Enemy_MaxHP/2)||(global.SavedSouls > 2));
+			global.Intensity += ((global.Enemy_HP < global.Enemy_MaxHP/3)||(global.SavedSouls > 4));
+		break;
+		}
 
 	curr_partymember = 0;
 	player_move = false;
@@ -459,4 +548,48 @@ function act_deal() {
 		func_init_text(144+deal);
 		menu_state = 6;
 		}
+	}
+	
+function end_standard() {
+	switch(global.Run) {
+		case 0://started pacifist
+			
+			battle_end_subending = 1;
+			battle_end_text = "Aborted Pacifist Ending";
+			if (global.SavedSouls == 6) {
+				battle_end_star = 0; //0 = pacifist
+				battle_end_subending = 2;
+				battle_end_text = "Pacifist Ending";
+				if (global.Enemy_HP == 0) {
+					battle_end_subending = 3;
+					battle_end_text = "Aggressive Pacifist Ending";
+					}
+				if (never_hurt) {
+					battle_end_subending = 4;
+					battle_end_text = "True Pacifist Ending";
+					}
+				}
+		break;
+		case 1://started neutral
+			battle_end_subending = 5;
+			battle_end_text = "Neutral Ending";
+			if (global.SavedSouls == 0) {
+				battle_end_subending = 6;
+				battle_end_text = "Neutral Soulcrusher Ending";
+				}
+			if (global.SavedSouls == 6) {
+				battle_end_subending = 7;
+				battle_end_text = "Neutral Pacifist Ending";
+				}
+		break;
+		case 2://locked in soulcrusher
+			battle_end_subending = 8;
+			battle_end_text = "Soulcrusher Ending";
+			if (soul_attack_script_index == 13) {
+				battle_end_subending = 9;
+				battle_end_text = "Brutal Soulcrusher Ending";
+				}
+			battle_end_star = 2; //2 = soulcrusher
+		break;
+		}	
 	}

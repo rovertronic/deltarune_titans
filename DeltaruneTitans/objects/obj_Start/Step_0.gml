@@ -43,6 +43,10 @@ if (transition_io) {
 		case 0:
 		scroll_submenu = clamp(scroll_submenu,0,array_length(options_text)-1);
 		break;
+		case 2:
+		scroll_submenu = clamp(scroll_submenu,0,global.UpgradeLevel-1);
+		global.Current_Soul_Skin = scroll_submenu;
+		break;
 		case 3:
 		scroll_submenu = clamp(scroll_submenu,0,3);
 		break;
@@ -70,23 +74,20 @@ if (transition_io) {
 				{
 				switch(scroll_horizontal) {
 					case 0:
-						if (func_inv_itemcount() > 0) {
-							submenu_open = true;
-							submenu_type = 2;
-							}
-							else
-							{
-							audio_play_sound(snd_MenuError,0,0);
-							}
+						submenu_open = true;
+						submenu_type = 2;
+						scroll_submenu = global.Current_Soul_Skin;
 					break;
 					case 1:
 						submenu_open = true;
-						submenu_type = 1;	
+						submenu_type = 1;
+						credits_scroll = 320;
 					break;
 					case 2:
-					scroll_submenu = 0;
-					submenu_open = true;
-					submenu_type = 0;
+						scroll_submenu = 0;
+						submenu_open = true;
+						submenu_type = 0;
+						
 					break;
 					case 3:
 						game_end();
@@ -158,8 +159,17 @@ if (transition_io) {
 					case 4://music
 						global.MusicOn = !global.MusicOn;
 						options_value[4] = !options_value[4];
+						save_settings();
 					break;
-					case 5://exit menu
+					case 5://eqip
+						options_value[5]++;
+						if (options_value[5] > 2) {
+							options_value[5] = 0;
+							}
+						global.EquipmentMode = options_value[5];
+						save_settings();
+					break;
+					case 6://exit menu
 						global.Gamepad = gamepad_temporary;
 						submenu_open = false;
 					break;
@@ -170,6 +180,7 @@ if (transition_io) {
 				break;
 				case 2:
 					submenu_open = false;
+					save_settings();
 				break;
 				case 3: //chapter description
 					if (scroll_submenu == 3) {
@@ -212,7 +223,31 @@ if (transition_io) {
 		}
 		else
 		{
+		switch(global.EquipmentMode) {
+			case 0:
+				if (global.Best_Chapter+1 == global.Chapter) { //best chapter+1 is latest unlocked, but not complete
+					global.Equipment = global.Chapter;
+					}
+					else
+					{
+					global.Equipment = global.Best_Chapter;
+					}
+			break;
+			case 1:
+				global.Equipment = global.Chapter;
+			break;
+			case 2:
+				global.Equipment = 0;
+			break;
+			}
+		
+		
+		global.UpgradeATK = chapter_atk_def_start[global.Equipment][0];
+		global.UpgradeDF = chapter_atk_def_start[global.Equipment][1];
+		
 		global.StartMusic = chapter_musics[scroll_vertical];
+		
+		global.Encounter = global.Chapter;
 		room_goto(transition_room);
 		}
 	}
@@ -228,3 +263,6 @@ if (submenu_open) {
 	submenu_height = lerp(submenu_height,0,.2);
 	submenu_open_full = false;
 	}
+	
+credits_scroll --;
+credits_scroll -= (dc*2)

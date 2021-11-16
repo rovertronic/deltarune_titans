@@ -12,6 +12,9 @@ if (obj_Soul.soul_attack > 10) {
 if (instance_exists(obj_Battle_Jevil)) {
 	obj_Battle_Jevil.state = 1;
 	}
+if (instance_exists(obj_Battle_Devil)) {
+	obj_Battle_Devil.state = 1;
+	}
 	
 if (instance_exists(obj_Battle_Spamton)) {
 	obj_Battle_Spamton.state = 1;

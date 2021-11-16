@@ -67,6 +67,66 @@ mus_Wind,
 0
 ]
 
+credits_ypos = 0;
+credits_scroll = 320;
+credits_text = [
+[c_white,"CREDITS"],
+[c_aqua,"Press [DOWN] to speed up!"],
+[c_white,""],
+[c_red,"SPOILERS AHEAD!!"],
+[c_white,""],
+[c_white,"Undertale / Deltarune"],
+[c_yellow,"Toby Fox"],
+[c_white,""],
+[c_lime,"Voices:"],
+[c_white,""],
+[c_white,"Omega Jevil"],
+[c_yellow,"its cazsu"],
+[c_white,""],
+[c_lime,"Music:"],
+[c_white,""],
+[c_white,"The World Revolving"],
+[c_white,"But it's Chaos"],
+[c_yellow,"RoomTone"],
+[c_white,""],
+[c_white,"BIG SHOT but it sounds like"],
+[c_white,"a chance to be a [[BIG SHOT]]"],
+[c_yellow,"RoomTone"],
+[c_white,""],
+[c_white,"Deal Gone Wrong"],
+[c_yellow,"RoomTone"],
+[c_white,""],
+[c_white,"The Circus"],
+[c_yellow,"Toby Fox"],
+[c_white,""],
+[c_white,"DialTone"],
+[c_yellow,"Toby Fox"],
+[c_white,""],
+[c_white,"Spamton"],
+[c_yellow,"Toby Fox"],
+[c_white,""],
+[c_white,"Basement"],
+[c_yellow,"Toby Fox"],
+[c_white,""],
+[c_white,"Nightmare Knight"],
+[c_yellow,"Toby Fox"],
+[c_white,""],
+[c_lime,"Social Media:"],
+[c_white,""],
+[c_red,"YouTube"],
+[c_white,"Youtube.com/c/Rovert_YT/"],
+[c_white,""],
+[c_aqua,"Twitter"],
+[c_white,"@RRRovert"],
+[c_white,""],
+[c_green,"Gamejolt"],
+[c_white,"Gamejolt.com/@Rovert"],
+[c_white,""],
+[c_gray,"Thank you so much"],
+[c_gray,"for playing my fangame!"],
+
+]
+
 chapter_text = [
 "Omega Jevil",
 "Spamton Sigma",
@@ -101,7 +161,7 @@ runs_text = [
 start_lvs = [
 [1,1,1],
 [1,2,4],
-[1,1,1],
+[1,3,8],
 [1,1,1],
 [1,1,1],
 [1,1,1],
@@ -111,10 +171,6 @@ start_lvs = [
 [1,1,1]
 ]
 
-options_text = [
-["Fullscreen","Windowed"],["Keyboard","Mouse","Controller"],["Delete Save","Are you sure?","Are you DOUBLE sure???","Save Deleted."],["Normal Retry","Quick Retry","No-Hit Retry"],["Music ON","Music OFF"],["Exit"]
-]
-options_value = [window_get_fullscreen(),0,0,global.RetryMode,!global.MusicOn,0];
 switch(global.Gamepad) {
 	case 0:
 	options_value[1] = 1;
@@ -129,8 +185,21 @@ menu_text = [
 //options_spacing = room_height/(array_length(options_value)+1);
 menu_spacing = room_width/(array_length(menu_text)+1);
 
-upgrade_text = ["+5 HP","+1 ATK","+2 DEF","+Overworld SPD","+5 HP","+2x TP Gain","+2 ATK","+Double Dip"];
-upgrade_stars = [2,3,4,6,7,9,11,15];
+chapter_atk_def_start = [
+[0,0],
+[3,3],
+[5,7],
+[0,0],
+[0,0],
+[0,0],
+[0,0],
+[0,0],
+[0,0],
+[0,0]
+]
+
+upgrade_text = ["Default","No Black Outline","Red Outline","Spade","Diamond","Clover","Spamton","hacker"];
+upgrade_stars = [0,1,3,6,7,8,9,15];
 global.UpgradeLevel = 0;
 
 //
@@ -158,6 +227,7 @@ for (i=0;i<30;i++) {
 
 global.LV = 1;
 global.MaxHP = 20;
+global.Equipment = 0;
 
 global.XP_Table = [
 0,10,20,40,50,80,100,200,300,400,500,800,1000,1500,2000,
@@ -175,6 +245,10 @@ global.WorkSouls = 0;
 
 global.Intensity = 0;
 
+global.Encounter = 0;
+
+global.FirstPipis = true;
+
 global.Run = 0; //0 = pacifist, 1=neutral, 2=genocide
 
 
@@ -183,7 +257,7 @@ global.chapters_played = [false,false,false,false,false,false,false,false,false,
 global.Stars = 0;
 
 global.MiniStarTable = [0,0,0,0,0,0,0,0,0,0];
-ministar_max = [3,9,1,1,1,1,1,1,1,1];
+ministar_max = [4,9,1,1,1,1,1,1,1,1];
 
 global.star_table = [
 //the fourth "star" is just the highest star you've ever gotten anywhere
@@ -214,6 +288,8 @@ runs_unlocked = [
 [0,0,0]
 ]
 
+global.Best_Chapter = 0;
+
 //load
 ini_open("Deltarune_Titans_Save.ini");
 
@@ -230,6 +306,7 @@ for (iy = 0; iy < 10; iy ++) {
 			}
 		if ((ix == 3)&&(global.star_table[iy][3])) {
 			global.chapters_played[iy] = true;
+			global.Best_Chapter = iy;
 			}
 		}
 	}
@@ -237,7 +314,7 @@ for (iy = 0; iy < 10; iy ++) {
 
 //mini stars
 for (iy = 0; iy < 10; iy ++) {
-	for (ix = 0; ix < ministar_max[iy]; ix ++) {
+	for (ix = 1; ix < ministar_max[iy]+1; ix ++) {
 		global.MiniStarTable[iy] += ini_read_real(string(iy)+"mini",string(ix),0);
 		}
 	if (global.MiniStarTable[iy] == ministar_max[iy]) {
@@ -257,7 +334,19 @@ for (i=0;i<8;i++) {
 	//i wanted to use my add item function but gamemaker is fucking high
 	// i had to write a fucking sorting algorithm!!!
 	// 
+	
+//settings
+global.Current_Soul_Skin = ini_read_real("Settings","Skin",0);
+global.MusicOn = ini_read_real("Settings","Music",1);
+global.EquipmentMode = ini_read_real("Settings","Equipment",0);
+	
 ini_close();
+
+options_text = [
+["Fullscreen","Windowed"],["Keyboard","Mouse","Controller"],["Delete Save","Are you sure?","Are you DOUBLE sure???","Save Deleted."],["Normal Retry","Quick Retry","No-Hit Retry"],["Music ON","Music OFF"],["Use Best Equipment","Use Chapter Equipment","Use NO Equipment"],["Exit"]
+]
+options_value = [window_get_fullscreen(),0,0,global.RetryMode,!global.MusicOn,global.EquipmentMode,0];
+
 
 global.UpgradeHP = 0;
 global.UpgradeDF = 0;
@@ -269,31 +358,41 @@ global.UpgradeTP = 1;
 for (i=0;i<array_length(upgrade_stars);i++) {
 	if (global.Stars >= upgrade_stars[i]) {
 		global.UpgradeLevel++;
-		switch(i) {
-			case 0:
-			global.UpgradeHP+=5;
-			break;
-			case 1:
-			global.UpgradeATK++;
-			break;
-			case 2:
-			global.UpgradeDF+=2;
-			break;
-			case 3:
-			global.UpgradeOWSP+=1;
-			break;
-			case 4:
-			global.UpgradeHP+=5;
-			break;
-			case 5:
-			global.UpgradeTP+=1;
-			break;
-			case 6:
-			global.UpgradeATK+=2;
-			break;
+		
+		if (false) {
+			switch(i) {//SCRAPPED, but i want to keep the code for soul skins
+				case 0:
+				global.UpgradeHP+=5;
+				break;
+				case 1:
+				global.UpgradeATK++;
+				break;
+				case 2:
+				global.UpgradeDF+=2;
+				break;
+				case 3:
+				global.UpgradeOWSP+=1;
+				break;
+				case 4:
+				global.UpgradeHP+=5;
+				break;
+				case 5:
+				global.UpgradeTP+=1;
+				break;
+				case 6:
+				global.UpgradeATK+=2;
+				break;
+				}
 			}
 		}
 	}
 
 global.SafeInventory = global.Inventory;
 
+function save_settings() {
+	ini_open("Deltarune_Titans_Save.ini");
+		ini_write_real("Settings","Skin",global.Current_Soul_Skin);
+		ini_write_real("Settings","Music",global.MusicOn);
+		ini_write_real("Settings","Equipment",global.EquipmentMode);
+	ini_close();
+	}

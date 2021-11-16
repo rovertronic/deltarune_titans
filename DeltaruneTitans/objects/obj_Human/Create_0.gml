@@ -1,3 +1,8 @@
+bglayer = -1;
+
+uni1 = shader_get_uniform(shade_void,"time");
+sintimer = 0;
+
 if (global.StartMusic != global.CurrentMusic)&&(global.MusicOn) {
 	audio_stop_sound(global.CurrentMusic);
 	audio_play_sound(global.StartMusic,0,true);
@@ -21,6 +26,19 @@ dirtable=[
 [1,0],
 [0,-1],
 ];
+
+chapter_equipment = [
+["Stick","Bandage"],
+["Toy Knife","Faded Ribbon"],
+["Tough Glove","Manly Bandanna"],
+["...","..."],
+["...","..."],
+["...","..."],
+["...","..."],
+["...","..."],
+["...","..."],
+["...","..."]
+]
 
 sliding = false;
 jumpout = true;

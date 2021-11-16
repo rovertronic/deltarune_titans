@@ -5,6 +5,8 @@ image_speed = 0;
 inputted = false;
 
 
+walkspeed = 3+(b2);
+
 sliding = place_meeting(x,y,obj_Ice);
 jumpout = false;
 if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding)&&(!global.CutsceneMode))
@@ -97,6 +99,9 @@ if ((!text_open)&&(!menu_open)&&(transition_io)&&(!sliding)&&(!global.CutsceneMo
 		global.StartMusic = interact_object.room_music;
 		transition_io = false;
 		transition_room = interact_object.room_id;
+		if (interact_object.room_setparty) {
+			global.Party = global.Chapter;
+			}
 		}
     }
 
@@ -125,7 +130,7 @@ if (sliding) {
 	}
 	
 if (moving) {
-	image_speed = 0.2;
+	image_speed = 0.2+(b2*0.2);
 		
 	for (i = 29; i > 0; i--) {
 		global.Partner_Path[i][0] = global.Partner_Path[i-1][0];
@@ -340,3 +345,19 @@ if (transition_io) {
 	
 global.Soul_X = (x-camera_get_view_x(view_camera[0]))*2;
 global.Soul_Y = (y-camera_get_view_y(view_camera[0]))*2.6666666;
+
+//set camera
+
+//background parlax
+bglayer = layer_get_id("Background");
+if (bglayer) {
+	camera_set_view_pos(view_camera[0],x-160,y-90);
+	if (camera_get_view_x(view_camera[0]) < 0) {
+		camera_set_view_pos(view_camera[0],0,y-90);
+		}
+	
+	layer_x(bglayer,camera_get_view_x(view_camera[0])/2);
+	layer_y(bglayer,(camera_get_view_y(view_camera[0])/3)+140);
+	}
+	
+sintimer += .02;

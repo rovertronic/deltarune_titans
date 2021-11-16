@@ -12,6 +12,17 @@ function func_solve_room(){
 					return true;
 					}
 			break;
+			case rm_OW2_sub3:
+				x_amount = 0;
+				for (i=0;i<4;i++) {
+					for (i2=0;i<4;i++) {
+						x_amount += global.Button_Array[i][i2];
+						}
+					}
+				if (x_amount == 0) {
+					return true;
+					}
+			break;
 			}
 		return false;
 		}

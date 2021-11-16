@@ -17,6 +17,8 @@ sintimer = random(20);
 image_speed = 0;
 
 
+shatter_count = 0;
+
 aim_angle = 0;
 object = -1;
 

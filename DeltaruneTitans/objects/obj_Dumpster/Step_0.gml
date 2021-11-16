@@ -22,6 +22,12 @@ if (state == 1) {
 		instance_create(x+48,y+10,obj_OW_Spamton);
 		global.StartMusic = mus_spamton;
 		global.CurrentMusic = mus_spamton;
-		audio_play_sound(global.StartMusic,0,true);
+		audio_sound_pitch(mus_spamton,1);
+		if (global.Run == 2) {
+			audio_sound_pitch(mus_spamton,0.5);
+			}
+		if (global.MusicOn) {
+			audio_play_sound(global.StartMusic,0,true);
+			}
 		}
 	}

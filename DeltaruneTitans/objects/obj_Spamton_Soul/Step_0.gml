@@ -78,7 +78,7 @@ switch(state) {
 				object = instance_create_layer(x,y,"Bullet",obj_SoulShoe);
 				}
 				
-			if (timer > 40)&&(timer%10==0) {
+			if (timer > 70)&&(timer%10==0) {
 				audio_play_sound(snd_GenAttack,0,0);
 				for (i = -1; i<2; i++) {
 					object = instance_create_layer(x,y,"Bullet",obj_StarSpread);
@@ -301,6 +301,10 @@ switch(state) {
 		
 		if (timer > 15+(soul_id*15)) {
 			state = 6;
+			if (global.Run == 2) {
+				state = 7;
+				}
+			timer = 0;
 			audio_play_sound(snd_Crack,0,0);
 			image_index = 2;
 			}
@@ -309,9 +313,48 @@ switch(state) {
 		target_x = soul_parent.x - 50 + ((soul_id%3)*50);
 		target_y = soul_parent.y + 100;
 		
+		if (timer > 20) {
+			if (global.Run != 2)||(global.Enemy_HP==0&&global.Enemy_ID==3) {
+				audio_play_sound(snd_break2,0,0);
+				
+				shatter_count = 6;
+				if (global.Enemy_HP==0&&global.Enemy_ID==3) {
+					shatter_count = 3;
+					}
+				
+				for (i=0;i<shatter_count;i++) {
+					object = instance_create(x,y,obj_soulshard);
+					object.image_blend = image_blend;
+					}
+				instance_destroy();
+				}
+			}
+		
 		if (global.Enemy_Attack != 0) {
 			state = 2;
 			timer = 0;
+			}
+	break;
+	case 7:
+
+		target_x = soul_parent.x - 50 + ((soul_id%3)*50);
+		target_y = soul_parent.y + 100;
+
+		if (global.Enemy_ID == 2) {
+			timer = 0;
+			}
+
+		if (timer > 15+(soul_id*15)) {
+			audio_play_sound(snd_break2,0,0);
+			for (i=0;i<3;i++) {
+				object = instance_create(x,y,obj_soulshard);
+				object.image_blend = image_blend;
+				}
+			image_index = 3;
+			if (soul_id % 2 == 1) {
+				image_xscale = -1;
+				}
+			state = 6;
 			}
 	break;
 	}

@@ -1,3 +1,5 @@
+sprite_index = global.Soul_Skins[global.Current_Soul_Skin];
+
 slowdown = 0;
 slowdown_input = false;
 

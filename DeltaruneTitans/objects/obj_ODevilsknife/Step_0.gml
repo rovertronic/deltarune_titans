@@ -7,6 +7,8 @@ if (delay < 1) {
 		audio_play_sound(snd_ultraswing,0,0);
 		}
 
+	offset = abs(offset);
+
 	x = 320+lengthdir_x(offset,angle);
 	y = 240+lengthdir_y(offset,angle);
 

@@ -98,6 +98,9 @@ if (!partner_move) {
 draw_text(243,402,"HP")
 
 global.HP = clamp(global.HP,0,global.MaxHP);
+if (global.RetryMode==2) {
+	global.MaxHP = 1;
+	}
 
 draw_text(313+hud_hp_offset,402, string(global.HP) + "/" + string(global.MaxHP));
 
@@ -175,6 +178,11 @@ draw_rectangle(0,0,room_width,room_height,false);
 draw_set_alpha(1);
 draw_set_color(c_white);
 
+if (soul_bound) {
+	soul_distance = point_distance(320,240,x,y);
+	draw_sprite_ext(spr_wire,0,320,240,soul_distance/86,1,point_direction(320,240,x,y),c_white,1);
+	}
+
 if (!hide_soul) {
 	draw_self();
 	draw_sprite_ext(spr_SoulGraze,0,x,y,image_xscale,image_yscale,image_angle,make_color_rgb(255,((global.Graze/10)*255),((global.Graze/10)*255)),global.Graze/10);
@@ -205,4 +213,6 @@ if (debug_mode) {
 		draw_text(200,i*32,string(deal_table[i]));
 		}
 		draw_text(150,deal_index*32,">");
+		
+		draw_text(x,y+10,string(global.NoHitRun));
 	}

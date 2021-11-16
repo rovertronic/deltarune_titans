@@ -1,7 +1,7 @@
 event_inherited();
 image_xscale = 1;
 image_yscale = 1;
-hazard_damage = 8;
+hazard_damage = 9;
 hazard_graze_cooldown = 60;
 image_alpha = 1;
 home_x = x;

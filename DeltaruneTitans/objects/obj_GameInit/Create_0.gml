@@ -2,9 +2,11 @@ global.TextIndex = 0;
 global.Gamepad = 3;
 global.RetryMode = 0;
 global.MusicOn = true;
+global.EquipmentMode = 0;
+global.Current_Soul_Skin = 0;
 
 //Text voices: 0: Jevil; 1: Spamton; 2: Default; 3: Snowkid; 4: Battle Letterbox
-//5: Sigma Spamton 6: Genocide Spamton
+//5: Sigma Spamton 6: Genocide Spamton 7: Devil
 
 //[Voice,Continue,Fun Value, String]
 global.TextTable = [
@@ -307,7 +309,7 @@ global.TextTable = [
 	[3,false,0,"* I want to go home..."], //239
 	[3,false,0,"* This is the creepy puppet\n  I kept seeing in my head!"], //240
 	
-	[3,false,0,"* The humans took my family\n  from me. We need to\n  kill them all."], //241
+	[3,false,0,"* Those humans took my family\n  from me. We need to\n  kill them all."], //241
 	[3,false,0,"* Sweet, sweet revenge."], //242
 	[3,false,0,"* I got nothing to lose."], //243
 	
@@ -322,7 +324,7 @@ global.TextTable = [
 	[6,true,0,"EVEN [Data Expunged]"], //252 4 hit
 	[6,false,0,"CAN DO BETTER THAN THAT... HUH?"],//253
 	[6,true,0,"GIVE UP! MY DEFENSE"],//254 5 hit
-	[6,false,0,"MY DEFENSE IS SO HIGH"],//255
+	[6,false,0,"MY DEFENSE IS TOWERING"],//255
 	[6,true,0,"MY DEFENSE IS SO HIGH"], //256 6 hit
 	[6,false,0,"IT DOESN'T MATTER HOW BIG YOU ARE"],//257
 	[6,true,0,"THE HUMAN SOULS ARE WARNING ME"],//258 7 hit
@@ -330,14 +332,143 @@ global.TextTable = [
 	[6,true,0,"THE HUMAN SOULS ARE WARNING ME"], //260 8 hit
 	[6,false,0,"THAT KARMA IS A [Female Dog]"],//261
 	[6,true,0,"OK, STOP THAT"],//262 9 hit
-	[6,false,0,"THERE'S NO WAY"],//263
+	[6,false,0,"THERE'S NO WAY YOU DEAL THAT MUCH [pain]"],//263
 	[6,true,0,"HOLY CUNGADERO"], //264 10 hit
 	[6,false,0,"WHAT THE [Hell]"],//265
 	[6,true,0,"OH [defecate]"],//266 11 hit
 	[6,false,0,"ONE MORE BIG SHOT IS ALL IT WOULD TAKE"],//267
 	[6,true,0,"..."], //268 12 hit
-	[6,false,0,"HELP"],//269
+	[6,false,0,"CURSE YOU, [data expunged]"],//269
 
+	[1,true,0,"* HOLY [CUNGADERO] !!"], //270
+	[1,true,0,"* WHERE DID MY [Dumpster Fire] OF\n  A [Domain name] SHIP OFF TOO??"], //271
+	[1,true,0,"* DID THE [data collection] TRUCK\n  DRIVER BRAKE THEIR\n  [free GPS app download]??"], //272
+	[1,true,0,"* WOAH.\n* [adolecent] VISITORS! !!"], //273
+	[1,true,0,"* YOU TWO LOOK [dissatisfied]\n* DID I DO SOMETHING WRONG?\n* [file a customer complaint]"], //274
+	[1,true,0,"* ...?"], //275
+	[1,true,0,"* YOU TWO ARE VERY [keep quiet\n  in the library!]"], //276
+	[1,false,1,"* IT MUST BE [Forecast: Heavy\n  Blizzard] OUT. TAKE SHELTER IN\n  MY [Prestegious Storefont], WHY\n  DON'T YOU?"], //277
+
+	[3,true,0,"* I'm a bit worried r-"], //278
+	[3,true,0,"* What's that? You already know\n  my name, I'm lost, and looking\n  for my parents?"], //279
+	[3,true,0,"* Wha-         \n* The human souls? An evil puppet?\n* ..."], //280
+	[3,true,0,"* ...The void??"], //281
+	[3,true,0,"* My family...?\n* ...\n* ..."], //282
+	[3,false,9,"* Let me join you.\n* We will stop them together."], //283 //Fun Value 9 snowkid joins party
+	
+	[5,false,0,"WANNA BE A [Heart] ON A [Chain] ?"], //284
+	[5,false,0,"LIKE YOUR KROMER [sweet] OR [sour] ?"], //285
+	[5,false,0,"TAKE YOUR [pipis] ENLARGE MENT [drugs]"], //286
+	
+	[2,true,0,"* You stare into the void.\n* The void stares back.\n* It's beautiful, yet terrifying."], //287
+	[2,false,0,"* Somehow, despite being infinite,\n  you are part of the void.\n* And the void is part of you."], //288
+	
+	[2,true,0,"* DEVIL'S LAIR\n* DO NOT ENTER"], //289
+	[2,true,0,"* IN CASE YOU SKIPPED OVER\n* LET ME REPEAT, ILLITERATE CHILD"], //290
+	[2,false,0,"* DEVIL'S LAIR\n* DO NOT ENTER"], //291
+	
+	[2,true,0,"* If you're reading this, then..."], //292
+	[2,false,0,"* GET OUT! STUPID FOOL!\n* WHAT A STUPID FOOL!\n* GET OUT!"], //293
+	
+	[7,true,0,"* WAS I NOT CLEAR"], //294
+	[7,true,0,"* LEAVE"], //295
+	[7,true,0,"* YOU WANT A MINI-STAR?"], //296
+	[7,true,0,"* \"Oh look at me! I want a\n  mini-star! I want to\n  progress further!\""], //297
+	[7,true,0,"* HAHAHAHA"], //298
+	[7,true,0,"* WHAT A SILLY LITTLE CHILD"], //299
+	[7,true,0,"* ..."], //300
+	[7,true,0,"* WELL, I WAS ONCE A COMBAT MENTOR"], //301
+	[7,true,0,"* HOWEVER, I REFUSE TO SPAR\n  UNTIL YOU CHANGE TO YOUR WEAKEST\n  GEAR"], //302
+	[7,true,0,"* GO BACK TO THE MENU AND\n  SET YOUR GEAR TO NONE"], //303
+	[7,false,0,"* TAKE THE STICK, THEN SLAP\n  THAT NASTY BANDAGE RIGHT BACK\n  ON"], //304
+	
+	[7,true,0,"* WAS I NOT CLEAR"], //305
+	[7,true,0,"* LEAVE"], //306
+	[7,true,0,"* YOU WANT A MINI-STAR?"], //307
+	[7,true,0,"* \"Oh look at me! I want a\n  mini-star! I want to\n  progress further!\""], //308
+	[7,true,0,"* HAHAHAHA"], //309
+	[7,true,0,"* WHAT A SILLY LITTLE CHILD"], //310
+	[7,true,0,"* ..."], //311
+	[7,true,0,"* WELL, I WAS ONCE A COMBAT MENTOR"], //312
+	[7,true,0,"* I AM SATISFIED WITH YOUR\n  CURRENT SET OF EQUIPMENT"], //313
+	[7,true,0,"* DON'T EXPECT ANYTHING ELSE,\n  OKAY?"], //314
+	[7,true,0,"* AND LET ME WARN YOU"], //315
+	[7,true,0,"* YOU'RE FIGHTING ME, DEVIL"], //316
+	[7,true,0,"* I WILL NOT HOLD BACK\n  ANY PUNCHES"], //317
+	[7,true,0,"* IF YOU DIE, YOU DIE"], //318
+	[7,false,1,"* THIS IS WHAT YOU WANTED,\n  A SECRET FIGHT\n  SO HERE YOU GO"], //319
+	
+	[7,false,0,"* WELL, GO ON"], //320
+	
+	[4,false,0,"* It's Devil."], //321
+	[4,false,0,"* It's a secret boss!"], //322
+	[4,false,0,"* Devil doesn't want to talk."], //323
+	
+	[4,true,0,"* DEVIL ? ATK ? DEF ? LV"], //324
+	[4,true,0,"* He think's he's subtle, but\n  everything he says is always\n  right on-the-nose."], //325
+	[4,false,0,"* He's a hardended imp.\n* With enough pressure though,\n  he may soften up."], //326
+	
+	[7,true,0,"WE'RE HERE TO SPAR, NOT FIGHT"], //327
+	[7,true,0,"USING ITEMS IS CHEATING"], //328
+	[7,true,0,"SORRY, YOU GET NO ENDING"], //329
+	[7,true,0,"AND WORST OF ALL, NO MINI STARS!"], //330
+	[7,false,1,"BUZZ OFF FECES FACE!"], //331
+	
+	[7,false,0,"..."], //332
+	[7,false,0,"IF YOU DON'T WANT TO GET HIT, REMAIN CALM"], //333
+	[7,false,0,"PAY ATTENTION TO THE NEGATIVE SPACE"], //334
+	[7,false,0,"HOLD [X] TO SLOW DOWN"], //335
+	
+	[7,false,0,"NO."], //336
+	[7,false,0,"NO!"], //337
+	[7,false,0,"LISTEN, WE'RE HERE TO SPAR, NOT CHAT"], //338
+	[7,false,0,"YOU'RE JUST INSULTING ME AT THIS POINT"], //339
+	[7,false,0,"STOP IT YOU ASS WIPE"], //340
+	[7,false,0,"..."], //341
+	[7,true,0,"FINE, I BUCKLE"], //332
+	[7,true,0,"I'M NOT ACTUALLY THE DEVIL"], //343
+	[7,true,0,"THAT JUST HAPPENS TO BE MY NAME, HEH"], //344
+	[7,true,0,"I WAS A COMBAT TRAINER FOR THE HUMAN-MONSTER WAR"], //345
+	[7,true,0,"I WORKED VERY CLOSELY WITH THE ROYAL SCIENTIST"], //346
+	[7,true,0,"WE EMPLOYED THE COMBINATION OF MAGIC AND TECHNOLOGY FOR TACTICS"], //347
+	[7,true,0,"UNFORTUNATELY, IN THE END, WE HAD STILL LOST"], //348
+	[7,true,0,"KING ASGORE DEMOTED ME TO A LOW CLASS ROYAL GUARD"], //349
+	[7,true,0,"HOWEVER, I WAS STILL VERY CLOSE TO THE ROYAL SCIENTIST"], //350
+	[7,true,0,"..."], //351
+	[7,true,0,"ONE DAY THOUGH, I CAME TO THE LAB TO CHECK ON HIM"], //352
+	[7,true,0,"HE HAD FALLEN INTO HIS CREATION"], //353
+	[7,true,0,"NATURALLY, I HAD WANTED TO GO FIND HIM"], //354
+	[7,true,0,"ONCE I STEPPED IN, EVERYTHING WENT TO BLACK"], //355
+	[7,true,0,"..."], //356
+	[7,true,0,"I NEVER FOUND HIM, BUT I DID LEARN A LOT ABOUT THE VOID"], //357
+	[7,true,0,"NOTHING'S REALLY REAL, YOU KNOW"], //358
+	[7,true,0,"IT'S AS REAL AS YOU MAKE IT"], //359
+	[7,true,0,"\"In the void, there's no space, no time, only matter\""], //360
+	[7,true,0,"MY PERCEPTION OF REALITY AND LIFE HAS CHANGED EVER SINCE THEN"], //361
+	[7,true,0,"I STILL HAVE TROUBLE WRAPPING MY HEAD AROUND IT"], //362
+	[7,true,0,"NOT TOO LONG AGO, MANY OF US LOST MONSTERS HAD FOUND THIS SANCTUARY"], //363
+	[7,true,0,"WE LIKE TO CALL IT \"The In-Between\""], //364
+	[7,true,0,"WE HAVE NO IDEA WHERE IT CAME FROM, BUT OUR FORMS ARE COMPATIBLE WITH IT"], //365
+	[7,true,0,"YOU DON'T SEEM TO BE LOST THOUGH"], //366
+	[7,true,0,"YOU MUST BE HERE FOR A REASON"], //367
+	[7,true,0,"ANYWAYS, I'M DONE RAMBLING"], //368
+	[7,false,1,"HAVE YOUR SILLY MINI-STAR"], //369
+	
+	[4,false,0,"* YOU ATTEMPT TO TALK TO DEVIL"], //370
+	
+	[7,true,0,"THAT'S ENOUGH"], //371
+	[7,true,0,"YOU'VE PROVEN YOURSELF WORTHY ENOUGH FOR A MINI-STAR"], //372
+	[7,false,1,"YOU HAVE YOUR LITTLE TOKEN OF PROGRESS NOW, SO PLEAE LEAVE"], //373
+	
+	[7,true,0,"THAT'S ENOUGH"], //374
+	[7,true,0,"YOU'VE PROVEN YOURSELF WORTHY ENOUGH FOR A MINI-STAR"], //375
+	[7,true,0,"I'M ALSO QUITE IMPRESSED, YOU DIDN'T GET HIT A SINGLE TIME"], //376
+	[7,true,0,"YOU CERTAINLY MAY HAVE WHAT IT TAKES TO DEFEAT..."], //377
+	[7,true,0,"...WELL, ANY UH FUTURE ENEMIES YOU ENCOUNTER"], //378
+	[7,true,0,"UNFORTUNATELY I CANNOT GIVE YOU ANY EXTRA REWARD, BUT YOU HAVE MY VERBAL ACKNOWLEDGEMENT"], //379
+	[7,false,1,"YOU HAVE YOUR LITTLE TOKEN OF PROGRESS NOW, SO PLEAE LEAVE"], //380
+	
+	[2,false,0,"* To open the path, all\n  buttons must be O-pen."], //381
     ];
 
 global.Item_Names = [
@@ -349,6 +480,16 @@ global.Item_Names = [
 "Herb",
 "Regen Potion"
 ];
+
+global.Soul_Skins = [
+spr_Soul,
+spr_SoulSkin1,
+spr_SoulSkin2,
+spr_SoulSkin3,
+spr_SoulSkin4,
+spr_SoulSkin5,
+spr_SoulSkin6
+]
 
 title_timer = 0;
 title_state = 0;

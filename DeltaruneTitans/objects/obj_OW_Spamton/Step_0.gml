@@ -5,5 +5,11 @@ y = lerp(y,target_y,.1);
 
 if (timer > 60)&&(state == 0) {
 	state = 1;
-	func_init_text(131);
+	if (global.Run == 2) {
+		func_init_text(270);
+		}
+		else
+		{
+		func_init_text(131);
+		}
 	}

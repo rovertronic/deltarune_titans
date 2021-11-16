@@ -1,5 +1,5 @@
 event_inherited();
-hazard_damage = 7;
+hazard_damage = 6;
 hazard_graze_cooldown = 90;
 offset = 150;
 angle = 0;

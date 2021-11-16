@@ -61,7 +61,7 @@ switch(state) {
 		audio_play_sound(snd_noise,0,0);
 		old_string = keyboard_string;
 		
-		if (contains) {
+		if ((contains)||(keyboard_string == "icup")) {
 			correct = false;
 			already_used = false;
 	

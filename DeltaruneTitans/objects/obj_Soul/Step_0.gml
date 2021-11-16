@@ -78,6 +78,15 @@ slowdown = clamp(slowdown,0,10);
 x += speedx;
 y += speedy;
 
+if (soul_bound) {
+	while (soul_distance >= 86) {
+		soul_distance = point_distance(320,240,x,y);
+		dir = point_direction(x,y,320,240);
+		x += lengthdir_x(1,dir);
+		y += lengthdir_y(1,dir);
+		}
+	}
+
 battle_box_x_v = lerp(battle_box_x_v,battle_box_x,.2);
 battle_box_y_v = lerp(battle_box_y_v,battle_box_y,.2);
 battle_box_h_v = lerp(battle_box_h_v,battle_box_h,.2);
@@ -391,11 +400,24 @@ if (player_move) {//player turn
 						break;
 						}
 					break;
-					case 5:
+					case 5://spamton sigma pacifist finale
 						func_init_text(166);
 						global.HP = global.MaxHP;
 						audio_play_sound(snd_Heal,0,0);
 						menu_state = 6;
+					break;
+					case 6://devil
+						switch(item_select_y) {
+							case 0://check
+								menu_state = 6;
+								func_init_text(324);
+							break;
+							case 1://talk
+								menu_state = 6;
+								func_init_text(370);
+								soul_action_taken = 4;//act
+							break;
+							}
 					break;
 					}
 				}
@@ -429,6 +451,7 @@ if (player_move) {//player turn
 			soul_menu_y = 280+(item_select_y*24);
 			
 			if (b1p) {
+				soul_action_taken = 3;
 				switch(global.Inventory[item_pick]) {
 					case 1://tensionbit
 						tp_reserve += 16;
@@ -567,6 +590,9 @@ if (player_move) {//player turn
 				global.Soul_Y = lerp(global.Soul_Y,450,.2);
 				}
 			if (timer == 40) {
+				if (!audio_is_playing(global.CurrentMusic))&&(global.MusicOn) {
+					audio_play_sound(global.CurrentMusic,0,true);
+					}
 				menu_state = 0;
 				}
 			soul_menu_x = global.Soul_X;
@@ -618,54 +644,28 @@ if (player_move) {//player turn
 					if (global.TextTable[global.TextIndex][2] == 1) { //end battle
 						battle_end_star = 1; //1 = neutral
 						battle_end_subending = 0;
-						switch(global.Run) {
-							case 0://started pacifist
-								menu_state = 11;
-								battle_end = true;
-								battle_end_subending = 1;
-								battle_end_text = "Aborted Pacifist Ending";
-								if (global.SavedSouls == 6) {
-									battle_end_star = 0; //0 = pacifist
-									battle_end_subending = 2;
-									battle_end_text = "Pacifist Ending";
-									if (global.Enemy_HP == 0) {
-										battle_end_subending = 3;
-										battle_end_text = "Aggressive Pacifist Ending";
-										}
-									if (never_hurt) {
-										battle_end_subending = 4;
-										battle_end_text = "True Pacifist Ending";
-										}
-									}
+						menu_state = 11;
+						battle_end = true;
+						timer = 0;
+
+						switch(global.Enemy_ID) {
+							case 2://sigma spamton
+							case 3://omega spamton
+								end_standard();
+								func_set_mini_star(battle_end_subending);
+								func_setstar(battle_end_star);
 							break;
-							case 1://started neutral
-								menu_state = 11;
-								battle_end = true;
-								battle_end_subending = 5;
-								battle_end_text = "Neutral Ending";
-								if (global.SavedSouls == 0) {
-									battle_end_subending = 6;
-									battle_end_text = "Neutral Soulcrusher Ending";
+							case 4:
+								if (soul_action_taken == 3) {
+									battle_end_text = "No Ending (No Mini-Star!)";
 									}
-								if (global.SavedSouls == 6) {
-									battle_end_subending = 7;
-									battle_end_text = "Neutral Pacifist Ending";
+									else
+									{
+									battle_end_text = "Devil Ending";
+									func_set_mini_star(4);
 									}
-							break;
-							case 2://locked in soulcrusher
-								menu_state = 11;
-								battle_end = true;
-								battle_end_subending = 8;
-								battle_end_text = "Soulcrusher Ending";
-								if (soul_attack_script_index == 13) {
-									battle_end_subending = 9;
-									battle_end_text = "Brutal Soulcrusher Ending";
-									}
-								battle_end_star = 2; //2 = soulcrusher
 							break;
 							}
-						func_set_mini_star(battle_end_subending);
-						func_setstar(battle_end_star);
 						}
 						else //normal close
 						{
@@ -730,11 +730,15 @@ if (player_move) {//player turn
 							battle_transition_timer = 0;
 							whitefade = 0;
 							
+							audio_play_sound(mus_create,0,0);
+							
 							hp_bar_size = 200;
 							textbox_alpha = .8;
 							global.CurrentMusic = mus_SigmaSpamton;
 							global.StartMusic = mus_spamton;
-							audio_play_sound(global.CurrentMusic,0,true);
+							if (global.MusicOn) {
+								audio_play_sound(global.CurrentMusic,0,true);
+								}
 							
 							if (global.Run == 2) {
 								soul_attack = 999;
@@ -742,8 +746,8 @@ if (player_move) {//player turn
 							
 							global.Enemy_ID = 2;
 							global.Enemy_Name = "Sigma Spamton";
-							global.Enemy_HP = (global.Enemy_HP/global.Enemy_MaxHP)*2000;
-							global.Enemy_MaxHP = 2000;
+							global.Enemy_HP = (global.Enemy_HP/global.Enemy_MaxHP)*1000;
+							global.Enemy_MaxHP = 1000;
 							global.Enemy_Attack = 0;
 							instance_destroy(obj_Battle_Spamton);
 							global.Enemy_Object = instance_create_layer(320,200,"Enemy",obj_Battle_SigmaSpamton);
@@ -773,7 +777,8 @@ if (player_move) {//player turn
 							
 							instance_create_layer(0,0,"Background_Objects",obj_BG_Dumpster);
 							actstate = 1;
-							e_attacktable = [[2,30],[1,30],[3,30]];
+							e_attackindex = 0;
+							e_attacktable = [[8,400],[9,600]];
 							e_attacktable = func_scramble_array(e_attacktable);
 							menu_state = 10;
 							hide_box = true;
@@ -795,7 +800,23 @@ if (player_move) {//player turn
 			hide_soul = true;
 			battle_end_fade = lerp(battle_end_fade,1,.1);
 			if (timer > 120) {
-				room_goto(rm_Start);
+				global.CutsceneMode = false;
+				global.Party = 0;
+				switch(global.Chapter) {
+					case 0://devil
+						room_goto(rm_Start);
+					break;
+					case 1://spamton
+						global.StartMatter = false;
+						global.StartMusic = mus_Wind;
+						audio_play_sound(global.StartMusic,0,true);
+						surface_resize(application_surface, 640, 360);
+						if (global.Run == 2) {
+							global.LV = 8;
+							}
+						room_goto(rm_OW2_sub5);
+					break;
+					}
 				}
 			timer ++;
 		break;
@@ -840,6 +861,7 @@ if (player_move) {//player turn
 		battle_box_y = 260;
 		battle_box_w = 546;
 		battle_box_h = 115;
+		soul_bound = false;
 	
 		global.TotalTurns++;
 		
@@ -889,11 +911,12 @@ hp_bar_visual = lerp(hp_bar_visual,global.Enemy_HP,.2);
 soul_kromer_hud = lerp(soul_kromer_hud,soul_kromer,0.1);
 
 //cant die if invincible
-if (soul_invincible) {
+if ((soul_invincible)&&(global.RetryMode!=2)) {
 	global.HP = clamp(global.HP,1,global.MaxHP);
 	}
 
 if ((global.HP < 1)&&(!dead)) {
+	soul_bound = false;
 	global.Graze = 0;
 	global.HP = 0;
 	graze_cooldown = 100;
@@ -903,9 +926,16 @@ if ((global.HP < 1)&&(!dead)) {
 	menu_state = 8;
 	timer = 0;
 	cooldown = 0;
-	audio_stop_sound(global.CurrentMusic);
+	if (global.Enemy_ID != 4) {
+		audio_stop_sound(global.CurrentMusic);
+		}
 	}
 	
 if (global.HP < 1) {
 	image_index = 2;
+	}
+	
+if (debug_mode && keyboard_check_pressed(ord("N"))) {
+	global.NoHitRun = true;
+	global.HP = 30;
 	}

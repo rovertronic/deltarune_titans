@@ -23,12 +23,20 @@ for (i = chapter_scroll_value; ((i < chapter_total)&&(i < chapter_scroll_value+5
 				draw_sprite_ext(spr_Stars,global.star_table[i][i2],432+(64*i2),(e*chapter_spacing)+2,1,1,0,selectcolor,1);
 				}
 				
+			//4th star for getting all mini stars
 			if (global.MiniStarTable[i] == ministar_max[i]) {
-				draw_sprite_ext(spr_Stars,1,380,(e*chapter_spacing)+2,1,1,0,selectcolor,1);
+				draw_sprite_ext(spr_Stars,1,368,(e*chapter_spacing)+2,1,1,0,selectcolor,1);
 				}
 				
-			for (i2 = 0; i2 < global.MiniStarTable[i]; i2++) {
-				draw_sprite_ext(spr_ministar,0,76+(8*i2),(e*chapter_spacing)+40,1,1,0,selectcolor,1);
+			//draw mini stars
+			for (i2 = 1; i2 < ministar_max[i]+1; i2++) {
+				if (global.MiniStarTable[i] >= i2) {
+					draw_sprite_ext(spr_ministar,0,76+(8*i2),(e*chapter_spacing)+40,1,1,0,selectcolor,1);
+					}
+					else
+					{
+					draw_sprite_ext(spr_ministar,0,76+(8*i2),(e*chapter_spacing)+40,1,1,0,c_grey,1);
+					}
 				}
 				
 			
@@ -107,9 +115,14 @@ gpu_set_colorwriteenable(1,1,1,0);
 			draw_set_color(c_white);
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_center);
-			draw_text(room_center_x,room_height/2,
-			"Undertale/Deltarune:\nToby Fox\n\nVoice Acting:\nChapter 1 - its cazsu\n\nMusic:\nChapter 1 - RoomTone\nChapter 2 - RoomTone\nAll other music: Toby"
-			);
+			for (i=0;i<array_length(credits_text);i++) {
+				draw_set_color(credits_text[i][0]);
+				credits_ypos = (i*12)+credits_scroll;
+				if (credits_ypos < 340)&&(credits_ypos > 0) {
+					draw_text(room_center_x,credits_ypos,credits_text[i][1]);
+					}
+				}
+			draw_set_color(c_white);
 		break;
 		case 2://items
 			draw_set_color(c_lime);
@@ -122,8 +135,11 @@ gpu_set_colorwriteenable(1,1,1,0);
 				}
 			draw_line(0,158,room_width,158);
 			draw_set_color(c_red);
-			draw_text(room_center_x,174,"Upgrades:");
+			draw_text(room_center_x,174,"Skins:");
 			draw_set_color(c_white);
+			
+			draw_sprite_ext(global.Soul_Skins[global.Current_Soul_Skin],0,room_center_x-84,194+(scroll_submenu*12),1,1,0,c_red,1);
+			
 			for (i=0; i<global.UpgradeLevel; i++) {
 				draw_text(room_center_x,194+(i*12),upgrade_text[i]);
 				}
@@ -144,7 +160,7 @@ gpu_set_colorwriteenable(1,1,1,0);
 				}
 			draw_text_ext_transformed(room_center_x,room_height/2,chapter_descriptions[global.Chapter],16,180,1,1,0);
 			
-			draw_sprite_ext(spr_Soul,0,room_center_x-84,260+(scroll_submenu*16),1,1,0,c_red,1);
+			draw_sprite_ext(global.Soul_Skins[global.Current_Soul_Skin],0,room_center_x-84,260+(scroll_submenu*16),1,1,0,c_red,1);
 			
 			draw_set_halign(fa_left);
 			for (i=0;i<4;i++) {

@@ -1,7 +1,15 @@
 image_angle = sin(sintimer/5) * 20;
 sintimer ++;
 
-y += 6;
+if (exist == 0) {
+	image_xscale += .1;
+	image_yscale += .1;
+	}
+	else
+	{
+	y += 6;	
+	}
+
 if (y > target_y)&&(exist==1) {
 	exist = 0;
 	audio_play_sound(snd_Pound,0,0);
@@ -14,10 +22,4 @@ if (y > target_y)&&(exist==1) {
 		object.aim_angle = aim_angle+(i*25);
 		object.bullet_speed = 5;
 		}
-	}
-
-
-if (exist == 0) {
-	image_xscale += .1;
-	image_yscale += .1;
 	}

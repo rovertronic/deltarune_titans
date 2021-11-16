@@ -1,3 +1,4 @@
+sprite_index = global.Soul_Skins[global.Current_Soul_Skin];
 x = global.GOx;
 y = global.GOy;
 window_set_size(room_width,room_height);

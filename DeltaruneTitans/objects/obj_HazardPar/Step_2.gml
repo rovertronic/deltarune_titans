@@ -3,12 +3,12 @@ if (healing) {
 	}
 
 soul=obj_Soul;
-if place_meeting(x,y,soul) && (soul.cooldown == 0) && (!soul.player_move)
+if place_meeting(x,y,soul) && (soul.cooldown == 0) && (!soul.player_move) && (exist)
     {
 	if (!healing) {
 	    soul.cooldown = 40;
 		global.DissalowGraze = 40;
-		total_damage = hazard_damage - (soul.soul_defense+soul.soul_defense_temporary);
+		total_damage = hazard_damage - (floor(soul.soul_defense)+soul.soul_defense_temporary);
 		total_damage = clamp(total_damage,1,99);
 	    global.HP -= total_damage;
 	    audio_play_sound(snd_Hurt,1,0);
@@ -23,7 +23,7 @@ if place_meeting(x,y,soul) && (soul.cooldown == 0) && (!soul.player_move)
 		}
     }
 soul.mask_index = spr_SoulGraze;
-if (place_meeting(x,y,soul))&&(graze_cooldown < 1)&&(global.DissalowGraze < 1) && (!soul.player_move) && (!healing){
+if (place_meeting(x,y,soul))&&(graze_cooldown < 1)&&(global.DissalowGraze < 1) && (!soul.player_move) && (!healing)  && (exist){
 	global.Graze = 10;
 	graze_cooldown = hazard_graze_cooldown;
 	soul.enemy_attack_time -= 5;

@@ -6,3 +6,7 @@ if (timer > 5) {
 	}
 y+=yvel;
 x+=xvel;
+
+if (y > 1000) {
+	instance_destroy();
+	}
