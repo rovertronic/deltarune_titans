@@ -189,7 +189,7 @@ global.TextTable = [
 	
 	[0,false,0,"NO WAY, NO WAY! I WANT TO PLAY A GAME!"], //142
 	
-	[2,false,0,"* EXCHANGED 25% TP FOR 20 KROMER!\n* THE KROMER STOCK ROSE!\n* BUSINESS IS BOOMING!"], //143
+	[2,false,0,"* EXCHANGED 24% TP FOR 20 KROMER!\n* THE KROMER STOCK ROSE!\n* BUSINESS IS BOOMING!"], //143
 	[2,false,0,"* A DEAL IS A DEAL!\n* YOU LOST 10 HP...\n* HOWEVER, YOU GAINED 50% TP!"], //144
 	[2,false,0,"* A DEAL IS A DEAL!\n* YOU INVESTED IN KROMER!\n* YOUR KROMER DOUBLED!"], //145
 	[2,false,0,"* A DEAL IS A DEAL!\n* YOU GAINED 10 HP!\n* SPAMTON GAINED 100 HP!"], //146
@@ -212,7 +212,7 @@ global.TextTable = [
 	[4,true,0,"* SPAMTON SIGMA 50 ATK 25 DEF\n* 2nd of the seven titans.\n* Infused with 6 stolen souls."], //161
 	[4,false,0,"* Looks like you can cut the\n  strings to free the souls!\n* Check changed to Cut String!"], //162
 	
-	[2,false,0,"* EXCHANGED 50% TP FOR 20 KROMER!\n* KROMER IS DEFLATED!\n* SPAMTON IS INFLATED!"], //163
+	[2,false,0,"* EXCHANGED 50% TP FOR 20 KROMER!\n* KROMER IS DEFLATED!\n* SPAMTON SIGMA IS INFLATED!"], //163
 	
 	[5,false,0,"PIPIS ENLARGED"], //164
 	
@@ -469,6 +469,28 @@ global.TextTable = [
 	[7,false,1,"YOU HAVE YOUR LITTLE TOKEN OF PROGRESS NOW, SO PLEAE LEAVE"], //380
 	
 	[2,false,0,"* To open the path, all\n  buttons must be O-pen."], //381
+	
+	[3,true,0,"* That was quite the fight..."], //382
+	[3,true,0,"* I'm all tired out now."], //383
+	[3,true,0,"* I suppose this is where we\n  split paths now, huh."], //384
+	[3,true,0,"* I'll keep looking for my\n  family. Hope you find what\n  you're looking for."], //385
+	[3,false,0,"* Cya Later.\n* I'll always remember you."], //386
+	
+	[2,true,0,"* It's a note from Snowkid."], //387
+	[2,true,0,"* \"Thank you so much."], //388
+	[2,true,0,"* I've learned so much fighting\n  by your side."], //389
+	[2,true,0,"* I have learned...\n* Things... Aren't as they\n  seem."], //390
+	[2,true,0,"* I've been lost for such a\n  long time."], //391
+	[2,true,0,"* You've shown me the light\n  of the void."], //392
+	[2,true,0,"* I left through the shadow\n  portal to go and find\n  my family."], //393
+	[2,true,0,"* I will fight with everything\n  in me until I find them."], //394
+	[2,true,0,"* See you later, friend."], //395
+	[2,false,0,"* And I mean it\"."], //396
+	
+	[5,false,0,"INSTALL [fly]WARE TODAY!"], //397
+	[5,false,0,"HEARTS, DIAMONDS, [DIAMONDS]! I CAN DO [DIAMONDS]!"], //398
+	[5,false,0,"YOU'VE GOT MAIL!"], //399
+	[5,false,0,"SOMEONE'S CALLING, AND IT'S FOR [You.]"], //400
     ];
 
 global.Item_Names = [

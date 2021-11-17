@@ -89,6 +89,28 @@ switch(state) {
 				object = instance_create_layer(irandom_range(120,520),10,"Bullet",obj_pipis);
 				}
 			}
+			
+		if (global.Enemy_Attack == 12) {
+			if (timer % (60-(global.Intensity*20)) == 0) {
+				object = instance_create_layer(-100,-100,"Bullet",obj_Phone_Blaster);
+				}
+			}
+			
+		if (global.Enemy_Attack == 10) {
+			if (!instance_exists(obj_Sussy_Fly)) {
+				create_amount = (global.Intensity*2)+8;
+				for (i=0;i<create_amount;i++) {
+					object = instance_create_layer(-100,-100,"Bullet",obj_Sussy_Fly);
+					object.timer = 40+(i*(15-(3*global.Intensity)));
+					object.go_angle = i*(360/create_amount);
+					}
+				}
+			if (timer % 50 == 0) {
+				object = instance_create_layer(-100,-100,"Bullet",obj_Sussy_Fly2);
+				object.x = 1+(irandom(1)*638);
+				object.y = irandom_range(50,400);
+				}
+			}
 	
 		if (global.Enemy_Attack == 9) {
 			state = 10;

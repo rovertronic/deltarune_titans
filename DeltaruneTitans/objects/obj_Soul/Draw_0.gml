@@ -62,6 +62,13 @@ if (player_move) {
 			draw_set_valign(fa_top);
 			draw_text(65,270,text_display);
 		break;
+		case 12:
+			draw_set_font(font_battle);
+			draw_set_color(c_white);
+			draw_set_halign(fa_left);
+			draw_set_valign(fa_top);
+			draw_text(87,262,"* Regular\n* X-Slash - 74% TP");
+		break;
 		}
 	}
 	

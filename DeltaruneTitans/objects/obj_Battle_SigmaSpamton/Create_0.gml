@@ -15,3 +15,5 @@ aim_angle = 0;
 
 target_x = 320;
 target_y = 240;
+
+create_amount = 0;

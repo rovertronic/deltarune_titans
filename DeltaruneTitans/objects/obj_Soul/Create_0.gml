@@ -56,6 +56,8 @@ soul_menu_y = y;
 soul_distance = 0;
 soul_bound = false;
 
+soul_xslash = false;
+
 soul_colors = [c_yellow,c_blue,c_lime,c_orange,c_purple,c_aqua,c_aqua];
 
 soul_freed_minigame = false;
@@ -367,6 +369,15 @@ function do_enemy_dialog() {
 					case 9:
 					func_init_text(284);
 					break;
+					case 10:
+					func_init_text(397);
+					break;
+					case 11:
+					func_init_text(398);
+					break;
+					case 12:
+					func_init_text(400);
+					break;
 					}
 				
 				if (soul_freed_minigame) {
@@ -533,7 +544,7 @@ function act_deal() {
 			break;
 			case 8:
 			audio_play_sound(snd_Akward,0,0);
-			tp_reserve -= 100;
+			tp_reserve -= global.MP;
 			global.UpgradeTP *= 2;
 			break;
 			case 9://anger

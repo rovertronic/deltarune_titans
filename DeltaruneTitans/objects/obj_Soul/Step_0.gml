@@ -255,7 +255,7 @@ if (player_move) {//player turn
 				
 				if (soul_attack_scripted) {
 					soul_attack = soul_attack_script_table[soul_attack_script_index];
-					soul_attack_script_index ++
+					soul_attack_script_index += 1 + soul_xslash;
 					if (soul_attack_script_index > 13) {
 						soul_attack_script_index = 13;
 						}
@@ -271,9 +271,19 @@ if (player_move) {//player turn
 					}
 				tp_reserve += attack_stick_damage/80;
 				audio_play_sound(snd_Attack,0,0);
-				instance_create(global.Enemy_Object.x,global.Enemy_Object.y,obj_NewSlice);
+				object = instance_create(global.Enemy_Object.x,global.Enemy_Object.y,obj_NewSlice);
+				if (soul_xslash) {
+					object._X = true;
+					}
 				}
+			
 			if ((attack_timer == 20)&&(attack_stick_damage>0)) {
+				
+				if (soul_xslash) {
+					soul_xslash = false;
+					attack_stick_damage *= 2;
+					}
+				
 				object = instance_create(320,120,obj_DamageNum);
 				object.num_input = attack_stick_damage*(soul_attack/10);
 				global.Enemy_HP -= attack_stick_damage*(soul_attack/10);
@@ -536,10 +546,17 @@ if (player_move) {//player turn
 			soul_menu_x = 67;
 			soul_menu_y = 280;
 			if (b1p) {
-				if (!partner_move) {
-					soul_action_taken = 1;
+				if ((global.MP >= 37)&&(!partner_move)) {
+					menu_state = 12; //x slash menu
+					item_select_y = 0;
 					}
-				menu_state = 1;
+					else
+					{
+					if (!partner_move) {
+						soul_action_taken = 1;
+						}
+					menu_state = 1;
+					}
 				}
 			if (b2p) {
 				menu_state = 0;
@@ -778,7 +795,7 @@ if (player_move) {//player turn
 							instance_create_layer(0,0,"Background_Objects",obj_BG_Dumpster);
 							actstate = 1;
 							e_attackindex = 0;
-							e_attacktable = [[8,400],[9,600]];
+							e_attacktable = [[8,400],[9,600],[10,600],[11,500],[12,500]];
 							e_attacktable = func_scramble_array(e_attacktable);
 							menu_state = 10;
 							hide_box = true;
@@ -809,6 +826,7 @@ if (player_move) {//player turn
 					case 1://spamton
 						global.StartMatter = false;
 						global.StartMusic = mus_Wind;
+						global.CurrentMusic = mus_Wind;
 						audio_play_sound(global.StartMusic,0,true);
 						surface_resize(application_surface, 640, 360);
 						if (global.Run == 2) {
@@ -819,6 +837,32 @@ if (player_move) {//player turn
 					}
 				}
 			timer ++;
+		break;
+		case 12://X-Slash option
+			if (ucp) {
+				item_select_y --;
+				}
+			if (dcp) {
+				item_select_y ++;
+				}
+			if (b2p) {
+				menu_state = 5;
+				}
+			item_select_y = clamp(item_select_y,0,1);
+			
+			soul_menu_x = 70;
+			soul_menu_y = 280+(item_select_y*30);
+			
+			if (b1p) {
+				if (!partner_move) {
+					soul_action_taken = 1;
+					}
+				if (item_select_y == 1) {
+					soul_xslash = true;
+					tp_reserve -= 37;
+					}
+				menu_state = 1;
+				}
 		break;
 		}
 
