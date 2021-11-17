@@ -38,6 +38,8 @@ battle_end_text = "Neutral Ending";
 battle_end_star = 1;
 battle_end_subending = 0;
 
+enemy_hp_display_offset = 0;
+
 text_choice = 0;
 
 never_hurt = true;
@@ -266,6 +268,7 @@ switch(global.Encounter) {
 		e_attacktable = func_scramble_array(e_attacktable);
 	break;
 	case 20:
+		enemy_hp_display_offset = 50;
 		global.Enemy_ID = 4;
 		global.Enemy_Name = "Devil";
 		global.Enemy_HP = 200;

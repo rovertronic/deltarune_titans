@@ -389,6 +389,14 @@ for (i=0;i<array_length(upgrade_stars);i++) {
 
 global.SafeInventory = global.Inventory;
 
+//just to be safe : )
+global.Button_Array = [
+[1,0,1,1],
+[1,0,0,0],
+[1,0,0,0],
+[1,0,1,1],
+]
+
 function save_settings() {
 	ini_open("Deltarune_Titans_Save.ini");
 		ini_write_real("Settings","Skin",global.Current_Soul_Skin);

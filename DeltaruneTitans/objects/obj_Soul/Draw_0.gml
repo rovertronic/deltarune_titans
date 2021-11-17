@@ -74,10 +74,10 @@ if (player_move) {
 	
 if (hp_bar_timer > 0) {
 	draw_set_color(c_grey);
-	draw_rectangle(320-(hp_bar_size/2),150,(hp_bar_size/2)+320,170,false);
+	draw_rectangle(320-(hp_bar_size/2),150+enemy_hp_display_offset,(hp_bar_size/2)+320,170+enemy_hp_display_offset,false);
 	draw_set_color(c_lime);
 	if (global.Enemy_HP > 0) {
-		draw_rectangle(320-(hp_bar_size/2),150,320-(hp_bar_size/2)+((hp_bar_visual/global.Enemy_MaxHP)*hp_bar_size),170,false);
+		draw_rectangle(320-(hp_bar_size/2),150+enemy_hp_display_offset,320-(hp_bar_size/2)+((hp_bar_visual/global.Enemy_MaxHP)*hp_bar_size),170+enemy_hp_display_offset,false);
 		}
 	}
 	

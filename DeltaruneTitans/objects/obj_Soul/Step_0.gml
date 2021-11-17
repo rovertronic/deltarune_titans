@@ -284,7 +284,7 @@ if (player_move) {//player turn
 					attack_stick_damage *= 2;
 					}
 				
-				object = instance_create(320,120,obj_DamageNum);
+				object = instance_create(320,120+enemy_hp_display_offset,obj_DamageNum);
 				object.num_input = attack_stick_damage*(soul_attack/10);
 				global.Enemy_HP -= attack_stick_damage*(soul_attack/10);
 				hp_bar_timer = 40;

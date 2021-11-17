@@ -1,7 +1,7 @@
 {
   "option_windows_display_name": "Deltarune Titans",
   "option_windows_executable_name": "DeltaruneTitans.exe",
-  "option_windows_version": "2.0.0.0",
+  "option_windows_version": "2.1.0.0",
   "option_windows_company_info": "",
   "option_windows_product_info": "",
   "option_windows_copyright_info": "",
